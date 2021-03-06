@@ -57,7 +57,7 @@ jDialog.onButtonClick(new OnButtonClickListener() {
 jDialog.show();
 ```
 
-<img src="\img\Screenshot_1614988263.png" alt="Screenshot_1614988263" style="zoom: 25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988263.png" alt="Screenshot_1614988263" style="zoom: 25%;" />
 
 ------
 
@@ -83,7 +83,7 @@ jDialog.show();
 
 
 
-<img src="\img\Screenshot_1614988267.png" alt="Screenshot_1614988267" style="zoom: 25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988267.png" style="zoom: 25%;" />
 
 ------
 
@@ -102,7 +102,7 @@ jDialog.show();
 
 
 
-<img src="\img\Screenshot_1614988273.png" alt="Screenshot_1614988273" style="zoom:25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988273.png" style="zoom:25%;" />
 
 
 
@@ -112,7 +112,7 @@ jDialog.show();
 
 
 
-<img src="\img\Screenshot_1614988287.png" alt="Screenshot_1614988287" style="zoom:25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988287.png" style="zoom:25%;" />
 
 
 
