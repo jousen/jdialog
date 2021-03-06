@@ -1,0 +1,3 @@
+include ':jdialog'
+include ':app'
+rootProject.name = "JDialog"
