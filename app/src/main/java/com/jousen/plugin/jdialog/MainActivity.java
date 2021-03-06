@@ -1,7 +1,13 @@
 package com.jousen.plugin.jdialog;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +32,26 @@ public class MainActivity extends AppCompatActivity {
         //普通消息弹窗
         findViewById(R.id.dialog_info).setOnClickListener(v -> {
             String title = "版本升级";
-            String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug";
+            String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n";
+            SpannableString user_protocol = new SpannableString("测试链接点击");
+            user_protocol.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Toast.makeText(context, "点击了文本内链接", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    super.updateDrawState(ds);
+                    ds.setColor(Color.BLUE);
+                }
+            }, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             JDialog jDialog = new JDialog(context);
             jDialog.setTitle(title);
             jDialog.setText(text);
+            jDialog.setTextScrollable();
+            jDialog.appendText(user_protocol);
             jDialog.onButtonClick(new OnButtonClickListener() {
                 @Override
                 public void closeClick() {
@@ -51,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
             String text = "确定要删除吗？";
 
             JDialog jDialog = new JDialog(context, true);
-            jDialog.setTitle(title, 4);
+            jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
             jDialog.setText(text);
+            jDialog.setConfirmText("立刻删除");
             jDialog.onButtonClick(new OnButtonClickListener() {
                 @Override
                 public void closeClick() {
@@ -71,16 +93,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.dialog_list).setOnClickListener(v -> {
             List<JDialogItem> jDialogItems = new ArrayList<>();
             jDialogItems.add(new JDialogItem("纯文本1"));
+            jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
+            jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
             jDialogItems.add(new JDialogItem("纯文本2"));
             jDialogItems.add(new JDialogItem("纯文本3"));
             jDialogItems.add(new JDialogItem("纯文本4"));
             jDialogItems.add(new JDialogItem("纯文本5"));
-            jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
             jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标2"));
             jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标3"));
             jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标4"));
             jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标5"));
-            jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
             jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
             jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
             jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));

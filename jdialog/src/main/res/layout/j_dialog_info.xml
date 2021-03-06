@@ -7,7 +7,7 @@
     android:paddingStart="10dp"
     android:paddingTop="10dp"
     android:paddingEnd="10dp"
-    android:paddingBottom="30dp">
+    android:paddingBottom="50dp">
 
     <TextView
         android:id="@+id/j_dialog_title"
@@ -25,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:padding="10dp"
         android:contentDescription="@string/j_dialog_close"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/j_dialog_title"
         app:layout_constraintRight_toRightOf="@+id/j_dialog_title"
         app:layout_constraintTop_toTopOf="@+id/j_dialog_title"
@@ -36,9 +36,11 @@
         android:id="@+id/j_dialog_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/j_dialog_card_style"
         android:gravity="start"
         android:lineSpacingExtra="3dp"
-        android:padding="10dp"
+        android:padding="15dp"
+        android:scrollbars="vertical"
         android:textColor="@color/dialog_text"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/j_dialog_title" />
@@ -54,6 +56,5 @@
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/j_dialog_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

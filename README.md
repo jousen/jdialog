@@ -31,7 +31,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:2.0'
+    implementation 'com.github.jousen:jdialog:2.1'
 }
 ```
 
@@ -113,6 +113,62 @@ jDialog.show();
 
 
 <img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988287.png" style="zoom:25%;" />
+
+------
+
+##### 5、function 方法
+
+set dialog title 设置弹窗标题
+
+```
+setTitle(String title)
+```
+
+```
+setTitle(String title, int titleMaxLength)
+```
+
+set info/confirm dialog text，if you need scroll or click，setTextScrollable，it already added LinkMovementMethod（use nuclearfog/LinkAndScrollMovement）。just functions bellow。
+
+设置消息/确认弹窗的内容，如果文本过长需要滚动或需要设置点击的文字，可设置setTextScrollable ，已经添加了LinkMovementMethod（use nuclearfog/LinkAndScrollMovement），可直接设置SpannableString
+
+```
+setText(String text)
+```
+
+```
+setTextScrollable()
+```
+
+```
+appendText(SpannableString text)
+```
+
+set info/confirm dialog confirm button text 设置消息/确认弹窗的确认按钮文字
+
+```
+public void setConfirmText(String text)
+```
+
+set info/confirm dialog listener 设置消息/确认弹窗的按钮点击回调
+
+```
+onButtonClick(OnButtonClickListener listener)
+```
+
+set list dialog listener 设置列表弹窗的按钮点击回调
+
+```
+onItemClick(OnItemClickListener listener)
+```
+
+
+
+## Project use libraries
+
+[LinkAndScrollMovement](https://github.com/nuclearfog/LinkAndScrollMovement)
+
+Thanks
 
 
 

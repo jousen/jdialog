@@ -1,10 +1,14 @@
 package com.jousen.plugin.jdialog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.SpannableString;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,9 +29,10 @@ public class JDialog extends BottomSheetDialog {
     private BottomSheetBehavior<View> bottomSheetBehavior;
     private OnButtonClickListener onButtonClickListener;
     private OnItemClickListener onItemClickListener;
-
     private TextView titleView;
     private TextView textView;
+    private Button confirmView;
+    private int windowsHeight = 1920;
 
     public JDialog(@NonNull Context context) {
         super(context);
@@ -44,6 +49,8 @@ public class JDialog extends BottomSheetDialog {
     public JDialog(@NonNull Context context, List<JDialogItem> dialogItems) {
         super(context);
         this.context = context;
+        //获取屏幕高度
+        getWindowHeight(context);
         //初始化弹窗
         dialogView = View.inflate(context, R.layout.j_dialog_list, null);
         //初始化弹窗参数
@@ -98,7 +105,42 @@ public class JDialog extends BottomSheetDialog {
      * @param text 弹窗内容
      */
     public void setText(String text) {
-        textView.setText(text);
+        if (textView != null) {
+            textView.setText(text);
+        }
+    }
+
+    /**
+     * 设置text可滚动 内容过长时使用
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    public void setTextScrollable() {
+        if (textView != null) {
+            textView.setMovementMethod(LinkAndScrollMovement.getInstance());
+            textView.setOnTouchListener(onTouchListener);
+        }
+    }
+
+    /**
+     * 设置title追加内容
+     *
+     * @param text 弹窗内容
+     */
+    public void appendText(SpannableString text) {
+        if (textView != null) {
+            textView.append(text);
+        }
+    }
+
+    /**
+     * 设置确认按钮文字
+     *
+     * @param text 按钮文字
+     */
+    public void setConfirmText(String text) {
+        if (confirmView != null) {
+            confirmView.setText(text);
+        }
     }
 
     /**
@@ -120,6 +162,8 @@ public class JDialog extends BottomSheetDialog {
     }
 
     private void initInfoDialog(@NonNull Context context, boolean isConfirm) {
+        //获取屏幕高度
+        getWindowHeight(context);
         //初始化弹窗
         if (isConfirm) {
             dialogView = View.inflate(context, R.layout.j_dialog_confirm, null);
@@ -133,12 +177,15 @@ public class JDialog extends BottomSheetDialog {
             onButtonClickListener.closeClick();
             closeDialog();
         });
-        dialogView.findViewById(R.id.j_dialog_confirm).setOnClickListener(v -> {
+        confirmView = dialogView.findViewById(R.id.j_dialog_confirm);
+        confirmView.setOnClickListener(v -> {
             onButtonClickListener.confirmClick();
             closeDialog();
         });
         titleView = dialogView.findViewById(R.id.j_dialog_title);
         textView = dialogView.findViewById(R.id.j_dialog_text);
+        int maxPixels = (int) (windowsHeight * 0.4);
+        textView.setMaxHeight(maxPixels);
     }
 
     /**
@@ -156,7 +203,8 @@ public class JDialog extends BottomSheetDialog {
             e.printStackTrace();
         }
         bottomSheetBehavior = BottomSheetBehavior.from((View) dialogView.getParent());
-        bottomSheetBehavior.setPeekHeight(getWindowHeight(context));
+        int defaultHeight = (int) (windowsHeight / 1.5);
+        bottomSheetBehavior.setPeekHeight(defaultHeight);
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
@@ -183,15 +231,14 @@ public class JDialog extends BottomSheetDialog {
     }
 
     /**
-     * 获取弹窗默认屏幕高度（默认显示三分之二）
+     * 获取屏幕高度
      *
      * @param context 上下文
-     * @return int
      */
-    private int getWindowHeight(Context context) {
+    private void getWindowHeight(Context context) {
         Resources res = context.getResources();
         DisplayMetrics displayMetrics = res.getDisplayMetrics();
-        return displayMetrics.heightPixels - displayMetrics.heightPixels / 3;
+        this.windowsHeight = displayMetrics.heightPixels;
     }
 
     /**
@@ -210,4 +257,16 @@ public class JDialog extends BottomSheetDialog {
         }
         return string.substring(0, titleMaxLength) + "…";
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private final View.OnTouchListener onTouchListener = (v, event) -> {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            v.getParent().requestDisallowInterceptTouchEvent(false);
+        }
+        return false;
+    };
 }
