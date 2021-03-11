@@ -29,7 +29,7 @@ allprojects {
 
 2、Add dependencies 
 
-[![](https://jitpack.io/v/jousen/jprint.svg)](https://jitpack.io/#jousen/jprint)
+[![](https://jitpack.io/v/jousen/jdialog.svg)](https://jitpack.io/#jousen/jdialog)
 
 ```
 dependencies {
