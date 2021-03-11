@@ -8,7 +8,7 @@
 
 ## 1、Feature 特性
 
-- Support Android 5.1+       Android 5.1以上系统版本支持
+- Support Android 5.0+       Android 5.0以上系统版本支持
 - Support Only AndroidX    只支持 AndroidX
 - Supports Android App Dark Theme  已适配Android暗黑模式
 
@@ -29,9 +29,11 @@ allprojects {
 
 2、Add dependencies 
 
+[![](https://jitpack.io/v/jousen/jprint.svg)](https://jitpack.io/#jousen/jprint)
+
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:2.1'
+    implementation 'com.github.jousen:jdialog:2.5'
 }
 ```
 
