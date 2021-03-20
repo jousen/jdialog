@@ -3,11 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/j_dialog_style"
-    android:paddingStart="10dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="50dp">
+    android:background="@drawable/jdialog_style"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/j_dialog_title"
@@ -15,6 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
+        android:text="@string/j_dialog_title"
         android:textColor="@color/dialog_text"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -25,36 +23,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:contentDescription="@string/j_dialog_close"
         android:padding="10dp"
+        android:contentDescription="@string/j_dialog_close"
         app:layout_constraintBottom_toBottomOf="@+id/j_dialog_title"
         app:layout_constraintRight_toRightOf="@+id/j_dialog_title"
         app:layout_constraintTop_toTopOf="@+id/j_dialog_title"
-        app:srcCompat="@drawable/j_dialog_close" />
+        app:srcCompat="@drawable/jdialog_close" />
 
-    <TextView
-        android:id="@+id/j_dialog_text"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/j_dialog_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/j_dialog_card_style"
-        android:gravity="start"
-        android:lineSpacingExtra="3dp"
-        android:padding="15dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/dialog_text"
-        android:textSize="14sp"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp"
         app:layout_constraintTop_toBottomOf="@+id/j_dialog_title" />
-
-    <Button
-        android:id="@+id/j_dialog_confirm"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/j_dialog_button_primary"
-        android:text="@string/j_dialog_confirm"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/j_dialog_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

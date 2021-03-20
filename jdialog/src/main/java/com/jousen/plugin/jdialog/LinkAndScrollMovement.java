@@ -18,7 +18,7 @@ import static android.view.MotionEvent.ACTION_UP;
  * @author nuclearfog
  * @version 1.4
  */
-public class LinkAndScrollMovement extends ScrollingMovementMethod {
+class LinkAndScrollMovement extends ScrollingMovementMethod {
 
     private static final LinkAndScrollMovement instance = new LinkAndScrollMovement();
 

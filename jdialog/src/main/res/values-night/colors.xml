@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dialog_background">#191919</color>
+    <color name="dialog_background">#232323</color>
     <color name="dialog_text">#FFFFFF</color>
     <color name="dialog_button_primary">#2196F3</color>
     <color name="dialog_button_danger">#FFEB3B</color>

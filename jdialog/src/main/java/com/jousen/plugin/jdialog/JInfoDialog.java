@@ -12,65 +12,45 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jousen.plugin.jdialog.listener.OnButtonClickListener;
-import com.jousen.plugin.jdialog.listener.OnItemClickListener;
 
-import java.util.List;
-
-public class JDialog extends BottomSheetDialog {
+public class JInfoDialog extends BottomSheetDialog {
     private final Context context;
-    private View dialogView;
+    private final View dialogView;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetBehavior<View> bottomSheetBehavior;
     private OnButtonClickListener onButtonClickListener;
-    private OnItemClickListener onItemClickListener;
-    private TextView titleView;
-    private TextView textView;
-    private Button confirmView;
+    private final TextView titleView;
+    private final TextView textView;
+    private final Button confirmView;
     private int windowsHeight = 1920;
 
-    public JDialog(@NonNull Context context) {
-        super(context);
-        this.context = context;
-        initInfoDialog(context, false);
-    }
-
-    public JDialog(@NonNull Context context, boolean isConfirm) {
-        super(context);
-        this.context = context;
-        initInfoDialog(context, isConfirm);
-    }
-
-    public JDialog(@NonNull Context context, List<JDialogItem> dialogItems) {
+    public JInfoDialog(@NonNull Context context) {
         super(context);
         this.context = context;
         //获取屏幕高度
         getWindowHeight(context);
         //初始化弹窗
-        dialogView = View.inflate(context, R.layout.j_dialog_list, null);
+        dialogView = View.inflate(context, R.layout.jdialog_info, null);
         //初始化弹窗参数
         initDialogOption();
         //初始化弹窗内部元素
-        titleView = dialogView.findViewById(R.id.j_dialog_title);
-        dialogView.findViewById(R.id.j_dialog_close).setOnClickListener(v -> closeDialog());
-        RecyclerView listView = dialogView.findViewById(R.id.j_dialog_list);
-        listView.setHasFixedSize(true);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        listView.setLayoutManager(linearLayoutManager);
-
-        JDialogListAdapter adapter = new JDialogListAdapter(dialogItems);
-        listView.setAdapter(adapter);
-        adapter.setOnItemClickListener(position -> {
-            onItemClickListener.itemClick(position);
+        dialogView.findViewById(R.id.j_dialog_close).setOnClickListener(v -> {
+            onButtonClickListener.closeClick();
             closeDialog();
         });
+        confirmView = dialogView.findViewById(R.id.j_dialog_confirm);
+        confirmView.setOnClickListener(v -> {
+            onButtonClickListener.confirmClick();
+            closeDialog();
+        });
+        titleView = dialogView.findViewById(R.id.j_dialog_title);
+        textView = dialogView.findViewById(R.id.j_dialog_text);
+        int maxPixels = (int) (windowsHeight * 0.4);
+        textView.setMaxHeight(maxPixels);
     }
 
     /**
@@ -111,13 +91,13 @@ public class JDialog extends BottomSheetDialog {
     }
 
     /**
-     * 设置text可滚动 内容过长时使用
+     * 设置title
+     *
+     * @param text 弹窗内容
      */
-    @SuppressLint("ClickableViewAccessibility")
-    public void setTextScrollable() {
+    public void setText(SpannableString text) {
         if (textView != null) {
-            textView.setMovementMethod(LinkAndScrollMovement.getInstance());
-            textView.setOnTouchListener(onTouchListener);
+            textView.setText(text);
         }
     }
 
@@ -129,6 +109,17 @@ public class JDialog extends BottomSheetDialog {
     public void appendText(SpannableString text) {
         if (textView != null) {
             textView.append(text);
+        }
+    }
+
+    /**
+     * 设置text可点击 内容过长时使用
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    public void setTextScrollable() {
+        if (textView != null) {
+            textView.setMovementMethod(LinkAndScrollMovement.getInstance());
+            textView.setOnTouchListener(onTouchListener);
         }
     }
 
@@ -150,42 +141,6 @@ public class JDialog extends BottomSheetDialog {
      */
     public void onButtonClick(OnButtonClickListener listener) {
         this.onButtonClickListener = listener;
-    }
-
-    /**
-     * 点击控件回调
-     *
-     * @param listener 回调
-     */
-    public void onItemClick(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-    private void initInfoDialog(@NonNull Context context, boolean isConfirm) {
-        //获取屏幕高度
-        getWindowHeight(context);
-        //初始化弹窗
-        if (isConfirm) {
-            dialogView = View.inflate(context, R.layout.j_dialog_confirm, null);
-        } else {
-            dialogView = View.inflate(context, R.layout.j_dialog_info, null);
-        }
-        //初始化弹窗参数
-        initDialogOption();
-        //初始化弹窗内部元素
-        dialogView.findViewById(R.id.j_dialog_close).setOnClickListener(v -> {
-            onButtonClickListener.closeClick();
-            closeDialog();
-        });
-        confirmView = dialogView.findViewById(R.id.j_dialog_confirm);
-        confirmView.setOnClickListener(v -> {
-            onButtonClickListener.confirmClick();
-            closeDialog();
-        });
-        titleView = dialogView.findViewById(R.id.j_dialog_title);
-        textView = dialogView.findViewById(R.id.j_dialog_text);
-        int maxPixels = (int) (windowsHeight * 0.4);
-        textView.setMaxHeight(maxPixels);
     }
 
     /**

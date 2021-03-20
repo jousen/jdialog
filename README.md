@@ -33,7 +33,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:2.5'
+    implementation 'com.github.jousen:jdialog:3.0'
 }
 ```
 
@@ -42,129 +42,132 @@ dependencies {
 ##### 1、Info dialog 消息弹窗
 
 ```
-JDialog jDialog = new JDialog(context);
-jDialog.setTitle(title);//dialog title
-jDialog.setText(text);//dialog content
-jDialog.onButtonClick(new OnButtonClickListener() {
-    @Override
-    public void closeClick() {
-        Toast.makeText(context, "点击了关闭按钮 click close button", Toast.LENGTH_SHORT).show();
-    }
+		String title = "版本升级";
+        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug";
+        SpannableString user_protocol = new SpannableString("测试链接点击");
+        user_protocol.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Toast.makeText(context, "点击了文本内链接", Toast.LENGTH_SHORT).show();
+            }
 
-    @Override
-    public void confirmClick() {
-        Toast.makeText(context, "点击了确认按钮 click confirm button", Toast.LENGTH_SHORT).show();
-    }
-});
-jDialog.show();
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.GREEN);
+            }
+        }, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        JInfoDialog jDialog = new JInfoDialog(context);
+        jDialog.setTitle(title);
+        jDialog.setText(text);
+        jDialog.appendText(user_protocol);
+        jDialog.setTextScrollable();
+        jDialog.onButtonClick(new OnButtonClickListener() {
+            @Override
+            public void closeClick() {
+                Toast.makeText(context, "点击了关闭按钮", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void confirmClick() {
+                Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jDialog.show();
 ```
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988263.png" alt="Screenshot_1614988263" style="zoom: 25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/1.png" alt="1" style="zoom: 25%;" />
 
 ------
 
 ##### 2、Confirm dialog 确认弹窗
 
 ```
-JDialog jDialog = new JDialog(context, true);
-jDialog.setTitle(title, 4);
-jDialog.setText(text);
-jDialog.onButtonClick(new OnButtonClickListener() {
-    @Override
-    public void closeClick() {
-        Toast.makeText(context, "点击了取消按钮", Toast.LENGTH_SHORT).show();
-    }
+		String title = "删除确认删除确认删除确认删除确认删除确认";
+        String text = "确定要删除吗？";
 
-    @Override
-    public void confirmClick() {
-        Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
-    }
-});
-jDialog.show();
+        JConfirmDialog jDialog = new JConfirmDialog(context);
+        jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
+        jDialog.setText(text);
+        jDialog.setConfirmText("立刻删除");
+        jDialog.onButtonClick(new OnButtonClickListener() {
+            @Override
+            public void closeClick() {
+                Toast.makeText(context, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void confirmClick() {
+                Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jDialog.show();
 ```
 
 
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988267.png" style="zoom: 25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/2.png" style="zoom: 25%;" />
 
 ------
 
 ##### 3、List dialog 列表弹窗
 
 ```
-List<JDialogItem> jDialogItems = new ArrayList<>();
-jDialogItems.add(new JDialogItem("纯文本1"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
-jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
+		List<JDialogItem> jDialogItems = new ArrayList<>();
+        jDialogItems.add(new JDialogItem("纯文本1"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
+        jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
+        jDialogItems.add(new JDialogItem("纯文本2"));
+        jDialogItems.add(new JDialogItem("纯文本3"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标2"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标3"));
+        jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
+        jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
 
-JDialog jDialog = new JDialog(context, jDialogItems);
-jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
-jDialog.show();
+        JListDialog jDialog = new JListDialog(context);
+        jDialog.setData(jDialogItems);
+        jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
+        jDialog.show();
 ```
 
 
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988273.png" style="zoom:25%;" />
-
-
+<img src="https://github.com/jousen/jdialog/blob/main/img/3.png" style="zoom:25%;" />
 
 ------
 
-##### 4、Dark Mode 暗黑模式
+##### 4、Grid dialog 网格弹窗
+
+```
+		List<JDialogItem> jDialogItems = new ArrayList<>();
+        jDialogItems.add(new JDialogItem("网格文本1"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本2"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本3"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本4"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
+
+        JListDialog jDialog = new JListDialog(context);
+        jDialog.setData(jDialogItems);
+        jDialog.setGridMode(4);
+        jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
+        jDialog.show();
+```
 
 
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/Screenshot_1614988287.png" style="zoom:25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/3.png" style="zoom:25%;" />
 
 ------
 
-##### 5、function 方法
-
-set dialog title 设置弹窗标题
-
-```
-setTitle(String title)
-```
-
-```
-setTitle(String title, int titleMaxLength)
-```
-
-set info/confirm dialog text，if you need scroll or click，setTextScrollable，it already added LinkMovementMethod（use nuclearfog/LinkAndScrollMovement）。just functions bellow。
-
-设置消息/确认弹窗的内容，如果文本过长需要滚动或需要设置点击的文字，可设置setTextScrollable ，已经添加了LinkMovementMethod（use nuclearfog/LinkAndScrollMovement），可直接设置SpannableString
-
-```
-setText(String text)
-```
-
-```
-setTextScrollable()
-```
-
-```
-appendText(SpannableString text)
-```
-
-set info/confirm dialog confirm button text 设置消息/确认弹窗的确认按钮文字
-
-```
-public void setConfirmText(String text)
-```
-
-set info/confirm dialog listener 设置消息/确认弹窗的按钮点击回调
-
-```
-onButtonClick(OnButtonClickListener listener)
-```
-
-set list dialog listener 设置列表弹窗的按钮点击回调
-
-```
-onItemClick(OnItemClickListener listener)
-```
+##### 5、Dark Mode 暗黑模式
 
 
+
+<img src="https://github.com/jousen/jdialog/blob/main/img/5.png" style="zoom:25%;" />
+
+------
 
 ## Project use libraries
 
