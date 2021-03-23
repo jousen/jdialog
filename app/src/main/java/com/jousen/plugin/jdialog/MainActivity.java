@@ -111,12 +111,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void listDialog() {
         List<JDialogItem> jDialogItems = new ArrayList<>();
-        jDialogItems.add(new JDialogItem("纯文本1"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2", getResources().getColor(R.color.purple_200)));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2", Color.YELLOW));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
         jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
         jDialogItems.add(new JDialogItem("纯文本2"));
         jDialogItems.add(new JDialogItem("纯文本3"));
-        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标2"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标3"));
         jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
         jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void gridDialog() {
         List<JDialogItem> jDialogItems = new ArrayList<>();
-        jDialogItems.add(new JDialogItem("网格文本1"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "网格文本1", getResources().getColor(R.color.purple_200)));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本2"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本3"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本4"));

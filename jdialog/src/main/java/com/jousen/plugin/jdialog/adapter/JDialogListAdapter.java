@@ -1,5 +1,6 @@
 package com.jousen.plugin.jdialog.adapter;
 
+import android.content.res.ColorStateList;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,9 @@ public class JDialogListAdapter extends RecyclerView.Adapter<JDialogListAdapter.
 
         if (!hideIcon) {
             holder.icon.setImageResource(item.icon > 0 ? item.icon : R.drawable.jdialog_list);
+            if (item.iconTint != 0) {
+                holder.icon.setImageTintList(ColorStateList.valueOf(item.iconTint));
+            }
             holder.icon.setOnClickListener(v -> onItemClickListener.itemClick(position));
         }
     }

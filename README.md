@@ -115,6 +115,10 @@ dependencies {
 
 ```
 		List<JDialogItem> jDialogItems = new ArrayList<>();
+		//自定义icon颜色
+		jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2", getResources().getColor(R.color.purple_200)));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2", Color.YELLOW));
+        
         jDialogItems.add(new JDialogItem("纯文本1"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
         jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
