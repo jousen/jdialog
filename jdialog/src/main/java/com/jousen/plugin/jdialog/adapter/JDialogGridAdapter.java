@@ -35,7 +35,7 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
         holder.text.setOnClickListener(v -> onItemClickListener.itemClick(position));
 
         if (!hideIcon) {
-            holder.icon.setBackgroundResource(item.icon > 0 ? item.icon : R.drawable.jdialog_list);
+            holder.icon.setImageResource(item.icon > 0 ? item.icon : R.drawable.jdialog_list);
             holder.icon.setOnClickListener(v -> onItemClickListener.itemClick(position));
         }
     }
