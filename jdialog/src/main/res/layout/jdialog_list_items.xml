@@ -3,9 +3,7 @@
     android:id="@+id/j_dialog_list_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
     android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
     android:background="@drawable/jdialog_card_style"
     android:orientation="horizontal"
     android:padding="10dp">
@@ -15,7 +13,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/j_dialog_list" />

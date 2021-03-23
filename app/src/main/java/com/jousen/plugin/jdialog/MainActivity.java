@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         jDialog.setTitle(title);
         jDialog.setText(text);
         jDialog.appendText(user_protocol);
+        jDialog.setTextBold();
         jDialog.setTextScrollable();
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         JListDialog jDialog = new JListDialog(context);
         jDialog.setData(jDialogItems);
+        jDialog.setTextBold();
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
     }

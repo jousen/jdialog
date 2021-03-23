@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/j_dialog_title"
         android:textColor="@color/dialog_text"
         android:textSize="14sp"
@@ -23,17 +23,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:padding="10dp"
         android:contentDescription="@string/j_dialog_close"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/j_dialog_title"
         app:layout_constraintRight_toRightOf="@+id/j_dialog_title"
         app:layout_constraintTop_toTopOf="@+id/j_dialog_title"
-        app:srcCompat="@drawable/jdialog_close" />
+        app:srcCompat="@drawable/jdialog_close"
+        app:tint="@color/dialog_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/j_dialog_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:clipToPadding="false"
         android:paddingBottom="50dp"
         app:layout_constraintTop_toBottomOf="@+id/j_dialog_title" />

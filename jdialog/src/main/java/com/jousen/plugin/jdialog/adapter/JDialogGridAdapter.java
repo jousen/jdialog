@@ -1,5 +1,6 @@
 package com.jousen.plugin.jdialog.adapter;
 
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import java.util.List;
 public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.VH> {
     private final List<JDialogItem> items;
     private final boolean hideIcon;
+    private final boolean boldText;
     private OnItemClickListener onItemClickListener;
 
-    public JDialogGridAdapter(List<JDialogItem> items, boolean hideIcon) {
+    public JDialogGridAdapter(List<JDialogItem> items, boolean hideIcon, boolean boldText) {
         this.items = items;
         this.hideIcon = hideIcon;
+        this.boldText = boldText;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
     @Override
     public JDialogGridAdapter.VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_grid_items, parent, false);
-        return new VH(v, hideIcon);
+        return new VH(v, hideIcon, boldText);
     }
 
     @Override
@@ -57,10 +60,16 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
         public final ImageView icon;
         public final TextView text;
 
-        public VH(View v, boolean hideIcon) {
+        public VH(View v, boolean hideIcon, boolean boldText) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.j_dialog_list_icon);
-            text = (TextView) v.findViewById(R.id.j_dialog_list_text);
+            icon = v.findViewById(R.id.j_dialog_list_icon);
+            text = v.findViewById(R.id.j_dialog_list_text);
+            if (boldText) {
+                TextPaint paint = text.getPaint();
+                if (paint != null) {
+                    paint.setFakeBoldText(true);
+                }
+            }
             if (hideIcon) {
                 icon.setVisibility(View.GONE);
             }

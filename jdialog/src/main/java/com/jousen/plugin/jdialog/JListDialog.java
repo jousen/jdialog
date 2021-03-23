@@ -34,6 +34,7 @@ public class JListDialog extends BottomSheetDialog {
     private int listType = 0;//0 Linear 1 Grid
     private int gridColumn;
     private boolean hideIcon;
+    private boolean boldText;
     private int windowsHeight = 1920;
 
     public JListDialog(@NonNull Context context) {
@@ -72,6 +73,13 @@ public class JListDialog extends BottomSheetDialog {
     }
 
     /**
+     * 设置文字加粗
+     */
+    public void setTextBold() {
+        this.boldText = true;
+    }
+
+    /**
      * 设置图标隐藏
      */
     public void setIconHide() {
@@ -92,7 +100,7 @@ public class JListDialog extends BottomSheetDialog {
             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
             listView.setLayoutManager(linearLayoutManager);
 
-            JDialogListAdapter adapter = new JDialogListAdapter(dialogItems, hideIcon);
+            JDialogListAdapter adapter = new JDialogListAdapter(dialogItems, hideIcon, boldText);
             listView.setAdapter(adapter);
             adapter.setOnItemClickListener(position -> {
                 onItemClickListener.itemClick(position);
@@ -106,7 +114,7 @@ public class JListDialog extends BottomSheetDialog {
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         listView.setLayoutManager(gridLayoutManager);
 
-        JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, hideIcon);
+        JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, hideIcon, boldText);
         listView.setAdapter(adapter);
         adapter.setOnItemClickListener(position -> {
             onItemClickListener.itemClick(position);

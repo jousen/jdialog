@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.SpannableString;
+import android.text.TextPaint;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -110,6 +111,20 @@ public class JInfoDialog extends BottomSheetDialog {
         if (textView != null) {
             textView.append(text);
         }
+    }
+
+    /**
+     * 设置文字加粗
+     */
+    public void setTextBold() {
+        if (textView == null) {
+            return;
+        }
+        TextPaint paint = textView.getPaint();
+        if (paint == null) {
+            return;
+        }
+        paint.setFakeBoldText(true);
     }
 
     /**

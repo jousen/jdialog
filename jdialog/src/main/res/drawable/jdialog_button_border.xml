@@ -4,4 +4,5 @@
         android:width="1dp"
         android:color="@color/dialog_button_danger" />
     <corners android:radius="6dp" />
+    <solid android:color="@color/dialog_card_background" />
 </shape>
