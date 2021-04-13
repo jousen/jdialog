@@ -33,7 +33,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:3.2'
+    implementation 'com.github.jousen:jdialog:3.3'
 }
 ```
 
@@ -179,7 +179,7 @@ Thanks
 
 
 
-# Licenses
+## Licenses
 
 ```
 Copyright 2021 jousen

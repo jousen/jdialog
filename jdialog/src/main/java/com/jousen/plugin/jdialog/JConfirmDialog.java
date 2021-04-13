@@ -40,7 +40,6 @@ public class JConfirmDialog extends BottomSheetDialog {
         //初始化弹窗参数
         initDialogOption();
         //初始化弹窗内部元素
-
         confirmView = dialogView.findViewById(R.id.j_dialog_confirm);
         confirmView.setOnClickListener(v -> {
             onButtonClickListener.confirmClick();
