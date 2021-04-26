@@ -194,7 +194,7 @@ public class JInfoDialog extends BottomSheetDialog {
     /**
      * 销毁弹窗
      */
-    private void closeDialog() {
+    public void closeDialog() {
         if (bottomSheetDialog != null) {
             bottomSheetDialog.dismiss();
         }

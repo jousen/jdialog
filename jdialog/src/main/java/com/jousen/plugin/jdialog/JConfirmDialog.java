@@ -208,7 +208,7 @@ public class JConfirmDialog extends BottomSheetDialog {
     /**
      * 销毁弹窗
      */
-    private void closeDialog() {
+    public void closeDialog() {
         if (bottomSheetDialog != null) {
             bottomSheetDialog.dismiss();
         }
