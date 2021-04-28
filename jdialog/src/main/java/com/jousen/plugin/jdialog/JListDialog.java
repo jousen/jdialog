@@ -96,11 +96,8 @@ public class JListDialog extends BottomSheetDialog {
         }
         //设置显示样式
         if (listType == 0) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-            linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-            listView.setLayoutManager(linearLayoutManager);
-
             JDialogListAdapter adapter = new JDialogListAdapter(dialogItems, hideIcon, boldText);
+            listView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
             listView.setAdapter(adapter);
             adapter.setOnItemClickListener(position -> {
                 onItemClickListener.itemClick(position);

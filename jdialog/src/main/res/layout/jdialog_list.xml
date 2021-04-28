@@ -28,8 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/j_dialog_title"
         app:layout_constraintRight_toRightOf="@+id/j_dialog_title"
         app:layout_constraintTop_toTopOf="@+id/j_dialog_title"
-        app:srcCompat="@drawable/jdialog_close"
-        app:tint="@color/dialog_text" />
+        app:srcCompat="@drawable/jdialog_close" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/j_dialog_list"
