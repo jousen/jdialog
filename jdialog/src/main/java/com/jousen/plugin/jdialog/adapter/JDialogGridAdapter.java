@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,12 +33,10 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
     public void onBindViewHolder(@NonNull JDialogGridAdapter.VH holder, int position) {
         JDialogItem item = items.get(position);
         holder.text.setText(item.text);
-        holder.text.setOnClickListener(v -> onItemClickListener.itemClick(position));
-
         if (!hideIcon) {
             holder.icon.setImageResource(item.icon > 0 ? item.icon : R.drawable.jdialog_list);
-            holder.icon.setOnClickListener(v -> onItemClickListener.itemClick(position));
         }
+        holder.layout.setOnClickListener(v -> onItemClickListener.itemClick(position));
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -57,11 +56,13 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
     }
 
     public static class VH extends RecyclerView.ViewHolder {
+        public final LinearLayout layout;
         public final ImageView icon;
         public final TextView text;
 
         public VH(View v, boolean hideIcon, boolean boldText) {
             super(v);
+            layout = v.findViewById(R.id.j_dialog_grid_view);
             icon = v.findViewById(R.id.j_dialog_list_icon);
             text = v.findViewById(R.id.j_dialog_list_text);
             if (boldText) {
