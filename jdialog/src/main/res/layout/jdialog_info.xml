@@ -4,10 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/jdialog_info_style"
-    android:paddingStart="10dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="50dp">
+    android:padding="15dp">
 
     <TextView
         android:id="@+id/j_dialog_title"
@@ -37,10 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="start"
         android:lineSpacingExtra="3dp"
         android:padding="15dp"
-        android:scrollbars="vertical"
         android:textColor="@color/dialog_text"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/j_dialog_title" />
@@ -55,6 +50,5 @@
         android:text="@string/j_dialog_confirm"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/j_dialog_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

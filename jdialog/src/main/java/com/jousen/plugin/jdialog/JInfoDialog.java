@@ -1,43 +1,33 @@
 package com.jousen.plugin.jdialog;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.text.SpannableString;
 import android.text.TextPaint;
-import android.util.DisplayMetrics;
-import android.view.MotionEvent;
+import android.text.method.LinkMovementMethod;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jousen.plugin.jdialog.listener.OnButtonClickListener;
 
 public class JInfoDialog extends BottomSheetDialog {
-    private final Context context;
-    private final View dialogView;
-    private BottomSheetDialog bottomSheetDialog;
-    private BottomSheetBehavior<View> bottomSheetBehavior;
-    private OnButtonClickListener onButtonClickListener;
+    private final AlertDialog dialog;
     private final TextView titleView;
     private final TextView textView;
     private final Button confirmView;
-    private int windowsHeight = 1920;
+    private OnButtonClickListener onButtonClickListener;
 
     public JInfoDialog(@NonNull Context context) {
         super(context);
-        this.context = context;
-        //获取屏幕高度
-        getWindowHeight(context);
-        //初始化弹窗
-        dialogView = View.inflate(context, R.layout.jdialog_info, null);
+        //弹窗界面
+        View dialogView = View.inflate(context, R.layout.jdialog_info, null);
         //初始化弹窗参数
-        initDialogOption();
+        dialog = new AlertDialog.Builder(context, R.style.JDialogStyle).setView(dialogView).setCancelable(true).create();
         //初始化弹窗内部元素
         dialogView.findViewById(R.id.j_dialog_close).setOnClickListener(v -> {
             onButtonClickListener.closeClick();
@@ -50,15 +40,13 @@ public class JInfoDialog extends BottomSheetDialog {
         });
         titleView = dialogView.findViewById(R.id.j_dialog_title);
         textView = dialogView.findViewById(R.id.j_dialog_text);
-        int maxPixels = (int) (windowsHeight * 0.4);
-        textView.setMaxHeight(maxPixels);
     }
 
     /**
      * 显示弹窗
      */
     public void show() {
-        bottomSheetDialog.show();
+        dialog.show();
     }
 
     /**
@@ -128,13 +116,30 @@ public class JInfoDialog extends BottomSheetDialog {
     }
 
     /**
-     * 设置text可点击 内容过长时使用
+     * 设置文字居中
      */
-    @SuppressLint("ClickableViewAccessibility")
+    public void setTextCenter() {
+        if (textView == null) {
+            return;
+        }
+        textView.setGravity(Gravity.CENTER);
+    }
+
+    /**
+     * 设置text可滚动 内容过长时使用(不建议使用过长文本)
+     * {@link JInfoDialog#setTextMovement}
+     */
+    @Deprecated
     public void setTextScrollable() {
+        setTextMovement();
+    }
+
+    /**
+     * 设置text可点击和滚动 内容过长时使用(不建议使用过长文本)
+     */
+    public void setTextMovement() {
         if (textView != null) {
-            textView.setMovementMethod(LinkAndScrollMovement.getInstance());
-            textView.setOnTouchListener(onTouchListener);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 
@@ -159,56 +164,12 @@ public class JInfoDialog extends BottomSheetDialog {
     }
 
     /**
-     * 设置弹窗参数
-     */
-    private void initDialogOption() {
-        //初始化dialog
-        bottomSheetDialog = new BottomSheetDialog(context);
-        bottomSheetDialog.setContentView(dialogView);
-        //设置背景为透明
-        try {
-            ViewGroup parent = (ViewGroup) dialogView.getParent();
-            parent.setBackgroundResource(android.R.color.transparent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        bottomSheetBehavior = BottomSheetBehavior.from((View) dialogView.getParent());
-        int defaultHeight = (int) (windowsHeight / 1.5);
-        bottomSheetBehavior.setPeekHeight(defaultHeight);
-        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View view, int i) {
-                if (i == BottomSheetBehavior.STATE_HIDDEN) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    closeDialog();
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View view, float v) {
-
-            }
-        });
-    }
-
-    /**
      * 销毁弹窗
      */
     public void closeDialog() {
-        if (bottomSheetDialog != null) {
-            bottomSheetDialog.dismiss();
+        if (dialog != null) {
+            dialog.dismiss();
         }
-    }
-
-    /**
-     * 获取屏幕高度
-     *
-     * @param context 上下文
-     */
-    private void getWindowHeight(Context context) {
-        Resources res = context.getResources();
-        DisplayMetrics displayMetrics = res.getDisplayMetrics();
-        this.windowsHeight = displayMetrics.heightPixels;
     }
 
     /**
@@ -227,16 +188,4 @@ public class JInfoDialog extends BottomSheetDialog {
         }
         return string.substring(0, titleMaxLength) + "…";
     }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private final View.OnTouchListener onTouchListener = (v, event) -> {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            v.getParent().requestDisallowInterceptTouchEvent(true);
-        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            v.getParent().requestDisallowInterceptTouchEvent(true);
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            v.getParent().requestDisallowInterceptTouchEvent(false);
-        }
-        return false;
-    };
 }

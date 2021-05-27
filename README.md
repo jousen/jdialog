@@ -33,7 +33,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:3.8'
+    implementation 'com.github.jousen:jdialog:3.9'
 }
 ```
 
@@ -42,40 +42,40 @@ dependencies {
 ##### 1、Info dialog 消息弹窗
 
 ```
-String title = "版本升级";
-String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n";
-SpannableString user_protocol = new SpannableString("测试链接点击");
-user_protocol.setSpan(new ClickableSpan() {
-@Override
-public void onClick(View widget) {
-Toast.makeText(context, "点击了文本内链接", Toast.LENGTH_SHORT).show();
-}
+        String title = "版本升级";
+        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug";
+        SpannableString user_protocol = new SpannableString("测试链接点击");
+        user_protocol.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Toast.makeText(context, "点击了文本内链接", Toast.LENGTH_SHORT).show();
+            }
 
-@Override
-public void updateDrawState(TextPaint ds) {
-super.updateDrawState(ds);
-ds.setColor(Color.GREEN);
-}
-}, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.BLUE);
+            }
+        }, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-JInfoDialog jDialog = new JInfoDialog(context);
-jDialog.setTitle(title);
-jDialog.setText(text);
-jDialog.appendText(user_protocol);
-jDialog.setTextBold();
-jDialog.setTextScrollable();
-jDialog.onButtonClick(new OnButtonClickListener() {
-@Override
-public void closeClick() {
-Toast.makeText(context, "点击了关闭按钮", Toast.LENGTH_SHORT).show();
-}
+        JInfoDialog jDialog = new JInfoDialog(context);
+        jDialog.setTitle(title);
+        jDialog.setText(text);
+        jDialog.appendText(user_protocol);
+        jDialog.setTextBold();
+        jDialog.setTextMovement();
+        jDialog.onButtonClick(new OnButtonClickListener() {
+            @Override
+            public void closeClick() {
+                Toast.makeText(context, "点击了关闭按钮", Toast.LENGTH_SHORT).show();
+            }
 
-@Override
-public void confirmClick() {
-Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
-}
-});
-jDialog.show();
+            @Override
+            public void confirmClick() {
+                Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jDialog.show();
 ```
 
 <img src="https://github.com/jousen/jdialog/blob/main/img/1.png" alt="1" style="zoom: 25%;" />
@@ -85,25 +85,26 @@ jDialog.show();
 ##### 2、Confirm dialog 确认弹窗
 
 ```
-String title = "删除确认删除确认删除确认删除确认删除确认";
-String text = "确定要删除吗？";
+        String title = "删除确认删除确认删除确认删除确认删除确认";
+        String text = "确定要删除吗？";
 
-JConfirmDialog jDialog = new JConfirmDialog(context);
-jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
-jDialog.setText(text);
-jDialog.setConfirmText("立刻删除");
-jDialog.onButtonClick(new OnButtonClickListener() {
-@Override
-public void closeClick() {
-Toast.makeText(context, "点击了取消按钮", Toast.LENGTH_SHORT).show();
-}
+        JConfirmDialog jDialog = new JConfirmDialog(context);
+        jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
+        jDialog.setText(text);
+        jDialog.setTextBold();
+        jDialog.setConfirmText("立刻删除");
+        jDialog.onButtonClick(new OnButtonClickListener() {
+            @Override
+            public void closeClick() {
+                Toast.makeText(context, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+            }
 
-@Override
-public void confirmClick() {
-Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
-}
-});
-jDialog.show();
+            @Override
+            public void confirmClick() {
+                Toast.makeText(context, "点击了确认按钮", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jDialog.show();
 ```
 
 
@@ -115,22 +116,22 @@ jDialog.show();
 ##### 3、List dialog 列表弹窗
 
 ```
-List<JDialogItem> jDialogItems = new ArrayList<>();
-jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
-jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
-jDialogItems.add(new JDialogItem("纯文本2"));
-jDialogItems.add(new JDialogItem("纯文本3"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标3"));
-jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
-jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
+        List<JDialogItem> jDialogItems = new ArrayList<>();
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "文本+图标2"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标1"));
+        jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
+        jDialogItems.add(new JDialogItem("纯文本2"));
+        jDialogItems.add(new JDialogItem("纯文本3"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "文本+图标3"));
+        jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
+        jDialogItems.add(new JDialogItem("长文本\n长文本\n长文本"));
 
-JListDialog jDialog = new JListDialog(context);
-jDialog.setData(jDialogItems);
-jDialog.setTextBold();
-jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
-jDialog.show();
+        JListDialog jDialog = new JListDialog(context);
+        jDialog.setData(jDialogItems);
+        jDialog.setTextBold();
+        jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
+        jDialog.show();
 ```
 
 
@@ -142,19 +143,19 @@ jDialog.show();
 ##### 4、Grid dialog 网格弹窗
 
 ```
-List<JDialogItem> jDialogItems = new ArrayList<>();
-jDialogItems.add(new JDialogItem(R.drawable.ic_box, "网格文本1"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本2"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本3"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本4"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
-jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
+        List<JDialogItem> jDialogItems = new ArrayList<>();
+        jDialogItems.add(new JDialogItem(R.drawable.ic_box, "网格文本1"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本2"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本3"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本4"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
+        jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
 
-JListDialog jDialog = new JListDialog(context);
-jDialog.setData(jDialogItems);
-jDialog.setGridMode(4);
-jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
-jDialog.show();
+        JListDialog jDialog = new JListDialog(context);
+        jDialog.setData(jDialogItems);
+        jDialog.setGridMode(4);
+        jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
+        jDialog.show();
 ```
 
 
@@ -170,13 +171,6 @@ jDialog.show();
 <img src="https://github.com/jousen/jdialog/blob/main/img/5.png" style="zoom:25%;" />
 
 ------
-
-## Project use libraries
-
-[LinkAndScrollMovement](https://github.com/nuclearfog/LinkAndScrollMovement)
-
-Thanks
-
 
 
 ## Licenses

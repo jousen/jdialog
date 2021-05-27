@@ -11,10 +11,9 @@
 
     <ImageView
         android:id="@+id/j_dialog_list_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="center"
-        android:adjustViewBounds="true"
         android:contentDescription="@string/j_dialog_list" />
 
     <TextView
@@ -24,5 +23,6 @@
         android:gravity="center"
         android:padding="5dp"
         android:textColor="@color/dialog_text"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textStyle="bold" />
 </LinearLayout>

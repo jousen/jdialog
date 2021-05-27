@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void infoDialog() {
         String title = "版本升级";
-        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n1. 修复bug\n2. 修复bug\n3. 修复bug\n4. 修复bug\n5. 修复bug\n";
+        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug";
         SpannableString user_protocol = new SpannableString("测试链接点击");
         user_protocol.setSpan(new ClickableSpan() {
             @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setColor(Color.GREEN);
+                ds.setColor(Color.BLUE);
             }
         }, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         jDialog.setText(text);
         jDialog.appendText(user_protocol);
         jDialog.setTextBold();
-        jDialog.setTextScrollable();
+        jDialog.setTextMovement();
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override
             public void closeClick() {
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         JConfirmDialog jDialog = new JConfirmDialog(context);
         jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
         jDialog.setText(text);
+        jDialog.setTextBold();
         jDialog.setConfirmText("立刻删除");
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override

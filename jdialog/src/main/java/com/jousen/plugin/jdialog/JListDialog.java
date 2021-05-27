@@ -24,12 +24,11 @@ import java.util.List;
 public class JListDialog extends BottomSheetDialog {
     private final Context context;
     private final View dialogView;
+    private final TextView titleView;
+    private final RecyclerView listView;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetBehavior<View> bottomSheetBehavior;
     private OnItemClickListener onItemClickListener;
-    private final TextView titleView;
-    private final RecyclerView listView;
-
     private List<JDialogItem> dialogItems;
     private int listType = 0;//0 Linear 1 Grid
     private int gridColumn;
