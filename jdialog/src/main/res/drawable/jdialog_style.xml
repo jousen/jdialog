@@ -2,5 +2,5 @@
     <corners
         android:topLeftRadius="8dp"
         android:topRightRadius="8dp" />
-    <solid android:color="@color/dialog_background" />
+    <solid android:color="@color/jdialog_bg" />
 </shape>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dialog_background">#232323</color>
-    <color name="dialog_text">#FFFFFF</color>
-    <color name="dialog_button_primary">#2196F3</color>
-    <color name="dialog_button_danger">#FFEB3B</color>
-    <color name="dialog_card_background">#383838</color>
+    <color name="jdialog_bg">#232323</color>
+    <color name="jdialog_text">#FFFFFF</color>
+    <color name="jdialog_bt_primary">#2196F3</color>
+    <color name="jdialog_bt_danger">#FFEB3B</color>
+    <color name="jdialog_card_bg">#383838</color>
 </resources>

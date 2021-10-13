@@ -1,20 +1,22 @@
 # jdialog
 
-**Android bottom dialog base on material design BottomSheetDialog.** 
+**Android 常用弹窗组件，基于谷歌的MaterialDesign BottomSheetDialog**
 
-**Android 底部弹窗组件，基于谷歌的MaterialDesign BottomSheetDialog**
+**Android bottom dialog base on material design BottomSheetDialog.** 
 
 ------
 
-## 1、Feature 特性
+## 1、特性 Feature
 
-- Support Android 5.0+       Android 5.0以上系统版本支持
-- Support Only AndroidX    只支持 AndroidX
-- Supports Android App Dark Theme  已适配Android暗黑模式
+-  Android 5.0以上系统版本支持 Support Android 5.0+ 
+- 只支持 AndroidX Support Only AndroidX
+- 已适配Android暗黑模式 Supports Android App Dark Theme 
 
-## 2、Import 依赖
+## 2、依赖 Import
 
-1、Add the JitPack maven repository to the list of repositories 将JitPack存储库添加到您的构建文件中(项目根目录下build.gradle文件)
+1、将JitPack存储库添加到您的构建文件中(项目根目录下build.gradle文件) 
+
+Add the JitPack maven repository to the list of repositories 
 
 **build.gradle**
 
@@ -33,13 +35,13 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:4.0'
+    implementation 'com.github.jousen:jdialog:4.1'
 }
 ```
 
-## 3、Usage 使用
+## 3、使用 Usage
 
-##### 1、Info dialog 消息弹窗
+##### 1、消息弹窗 Info dialog
 
 ```
         String title = "版本升级";
@@ -78,7 +80,7 @@ dependencies {
         jDialog.show();
 ```
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/1.png" alt="1" style="zoom: 25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/1.png"/>
 
 ------
 
@@ -109,11 +111,11 @@ dependencies {
 
 
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/2.png" style="zoom: 25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/2.png"/>
 
 ------
 
-##### 3、List dialog 列表弹窗
+##### 3、列表左侧带图标弹窗 List dialog with icon
 
 ```
         List<JDialogItem> jDialogItems = new ArrayList<>();
@@ -136,11 +138,11 @@ dependencies {
 
 
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/3.png" style="zoom:25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/3.png"/>
 
 ------
 
-##### 4、Grid dialog 网格弹窗
+##### 4、网格带图标弹窗 grid dialog with icon
 
 ```
         List<JDialogItem> jDialogItems = new ArrayList<>();
@@ -151,24 +153,43 @@ dependencies {
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
 
-        JListDialog jDialog = new JListDialog(context);
+        JListDialog jDialog = new JListDialog(context,4,false);
         jDialog.setData(jDialogItems);
-        jDialog.setGridMode(4);
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
 ```
 
 
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/4.png" style="zoom:25%;" />
+<img src="https://github.com/jousen/jdialog/blob/main/img/4.png"/>
 
 ------
 
-##### 5、Dark Mode 暗黑模式
+##### 5、多列不带图标弹窗 multi list no icon
 
+<img src="https://github.com/jousen/jdialog/blob/main/img/5.png"/>
 
+```
+        List<JDialogItem> jDialogItems = new ArrayList<>();
+        jDialogItems.add(new JDialogItem("文本1"));
+        jDialogItems.add(new JDialogItem("文本2"));
+        jDialogItems.add(new JDialogItem("文本3"));
+        jDialogItems.add(new JDialogItem("文本4"));
+        jDialogItems.add(new JDialogItem("文本5"));
 
-<img src="https://github.com/jousen/jdialog/blob/main/img/5.png" style="zoom:25%;" />
+        JListDialog jDialog = new JListDialog(context,3,true);
+        jDialog.setData(jDialogItems);
+        jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
+        jDialog.show();
+```
+
+##### 6、Dark Mode 暗黑模式
+
+<img src="https://github.com/jousen/jdialog/blob/main/img/6.png"/>
+
+## 4、注意
+
+关闭activity或因切换横竖屏导致activity销毁重建时，最好检查下dialog是否已关闭，若未关闭，可能导致内存问题
 
 ------
 

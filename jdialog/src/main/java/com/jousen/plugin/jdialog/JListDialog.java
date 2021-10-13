@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jousen.plugin.jdialog.adapter.JDialogGridAdapter;
-import com.jousen.plugin.jdialog.adapter.JDialogListAdapter;
+import com.jousen.plugin.jdialog.adapter.JDialogMultiListAdapter;
+import com.jousen.plugin.jdialog.adapter.JDialogSingleListAdapter;
 import com.jousen.plugin.jdialog.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JListDialog extends BottomSheetDialog {
+public class JListDialog {
     private final Context context;
     private final View dialogView;
     private final TextView titleView;
@@ -30,15 +31,19 @@ public class JListDialog extends BottomSheetDialog {
     private BottomSheetBehavior<View> bottomSheetBehavior;
     private OnItemClickListener onItemClickListener;
     private List<JDialogItem> dialogItems;
-    private int listType = 0;//0 Linear 1 Grid
     private int gridColumn;
     private boolean hideIcon;
     private boolean boldText;
     private int windowsHeight = 1920;
 
     public JListDialog(@NonNull Context context) {
-        super(context);
+        this(context, 1, false);
+    }
+
+    public JListDialog(@NonNull Context context, int gridColumn, boolean hideIcon) {
         this.context = context;
+        this.gridColumn = gridColumn;
+        this.hideIcon = hideIcon;
         //获取屏幕高度
         getWindowHeight(context);
         //初始化弹窗
@@ -46,10 +51,26 @@ public class JListDialog extends BottomSheetDialog {
         //初始化弹窗参数
         initDialogOption();
         //初始化弹窗内部元素
-        titleView = dialogView.findViewById(R.id.j_dialog_title);
-        dialogView.findViewById(R.id.j_dialog_close).setOnClickListener(v -> closeDialog());
-        listView = dialogView.findViewById(R.id.j_dialog_list);
+        titleView = dialogView.findViewById(R.id.jdialog_title);
+        dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> closeDialog());
+        listView = dialogView.findViewById(R.id.jdialog_list);
         listView.setHasFixedSize(true);
+    }
+
+    /**
+     * 设置为网格模式
+     *
+     * @param gridColumn 列数
+     */
+    public void setGridMode(int gridColumn) {
+        this.gridColumn = gridColumn;
+    }
+
+    /**
+     * 设置图标隐藏
+     */
+    public void setIconHide() {
+        this.hideIcon = true;
     }
 
     /**
@@ -62,16 +83,6 @@ public class JListDialog extends BottomSheetDialog {
     }
 
     /**
-     * 设置为网格模式
-     *
-     * @param gridColumn 列数
-     */
-    public void setGridMode(int gridColumn) {
-        this.listType = 1;
-        this.gridColumn = gridColumn;
-    }
-
-    /**
      * 设置文字加粗
      */
     public void setTextBold() {
@@ -79,44 +90,48 @@ public class JListDialog extends BottomSheetDialog {
     }
 
     /**
-     * 设置图标隐藏
-     */
-    public void setIconHide() {
-        this.hideIcon = true;
-    }
-
-    /**
      * 显示弹窗
      */
     public void show() {
+        if (bottomSheetDialog == null) {
+            return;
+        }
         //检查列表数据
         if (dialogItems == null) {
             dialogItems = new ArrayList<>();
         }
-        //设置显示样式
-        if (listType == 0) {
-            JDialogListAdapter adapter = new JDialogListAdapter(dialogItems, hideIcon, boldText);
+        //1、不带图标模式
+        if (hideIcon) {
+            listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
+            JDialogMultiListAdapter adapter = new JDialogMultiListAdapter(dialogItems, boldText);
+            listView.setAdapter(adapter);
+            adapter.setOnItemClickListener(position -> {
+                onItemClickListener.itemClick(position);
+                closeDialog();
+            });
+            bottomSheetDialog.show();
+            return;
+        }
+        //2、单列带图标模式（图标在左侧）
+        if (gridColumn == 1) {
+            JDialogSingleListAdapter adapter = new JDialogSingleListAdapter(dialogItems, boldText);
             listView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
             listView.setAdapter(adapter);
             adapter.setOnItemClickListener(position -> {
                 onItemClickListener.itemClick(position);
                 closeDialog();
             });
-
             bottomSheetDialog.show();
             return;
         }
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, gridColumn);
-        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        listView.setLayoutManager(gridLayoutManager);
-
-        JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, hideIcon, boldText);
+        listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
+        //3、多列带图标模式（图标在上侧）
+        JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, boldText);
         listView.setAdapter(adapter);
         adapter.setOnItemClickListener(position -> {
             onItemClickListener.itemClick(position);
             closeDialog();
         });
-
         bottomSheetDialog.show();
     }
 
@@ -126,7 +141,7 @@ public class JListDialog extends BottomSheetDialog {
      * @param title 弹窗标题
      */
     public void setTitle(String title) {
-        titleView.setText(subString(title, 16));
+        titleView.setText(StrSub.limit(title, 16));
     }
 
     /**
@@ -136,7 +151,7 @@ public class JListDialog extends BottomSheetDialog {
      * @param titleMaxLength 标题最大长度
      */
     public void setTitle(String title, int titleMaxLength) {
-        titleView.setText(subString(title, titleMaxLength));
+        titleView.setText(StrSub.limit(title, titleMaxLength));
     }
 
     /**
@@ -199,22 +214,5 @@ public class JListDialog extends BottomSheetDialog {
         Resources res = context.getResources();
         DisplayMetrics displayMetrics = res.getDisplayMetrics();
         this.windowsHeight = displayMetrics.heightPixels;
-    }
-
-    /**
-     * 标题长度限制
-     *
-     * @param string         标题
-     * @param titleMaxLength 最大长度
-     * @return string
-     */
-    private String subString(String string, int titleMaxLength) {
-        if (string == null) {
-            return "";
-        }
-        if (titleMaxLength == 0 || string.length() < titleMaxLength) {
-            return string;
-        }
-        return string.substring(0, titleMaxLength) + "…";
     }
 }

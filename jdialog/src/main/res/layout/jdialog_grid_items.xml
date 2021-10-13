@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/j_dialog_grid_view"
+    android:id="@+id/jdialog_grid_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="2dp"
     android:background="@drawable/jdialog_card_style"
     android:orientation="vertical"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:padding="10dp">
 
     <ImageView
-        android:id="@+id/j_dialog_list_icon"
+        android:id="@+id/jdialog_list_icon"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/j_dialog_list" />
+        android:contentDescription="@string/jdialog_list" />
 
     <TextView
-        android:id="@+id/j_dialog_list_text"
+        android:id="@+id/jdialog_list_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:textColor="@color/dialog_text"
+        android:textColor="@color/jdialog_text"
         android:textSize="12sp"
         android:textStyle="bold" />
 </LinearLayout>

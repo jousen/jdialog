@@ -2,7 +2,8 @@
     <string name="app_name">JDialog</string>
     <string name="dialog_info">消息弹窗</string>
     <string name="dialog_confirm">确认弹窗</string>
-    <string name="dialog_list">列表弹窗</string>
-    <string name="dialog_grid">网格弹窗</string>
+    <string name="dialog_list">列表带图标弹窗</string>
+    <string name="dialog_grid">网格带图标弹窗</string>
+    <string name="dialog_multi_list">多列不带图标弹窗</string>
     <string name="day_night">暗黑模式样式切换</string>
 </resources>

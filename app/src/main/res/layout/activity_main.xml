@@ -61,6 +61,17 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/dialog_multi_list"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="20dp"
+        android:background="@color/purple_700"
+        android:text="@string/dialog_multi_list"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+    <Button
         android:id="@+id/day_night"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"

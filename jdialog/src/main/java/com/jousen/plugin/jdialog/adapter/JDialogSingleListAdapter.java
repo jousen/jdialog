@@ -17,20 +17,21 @@ import com.jousen.plugin.jdialog.listener.OnItemClickListener;
 
 import java.util.List;
 
-public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.VH> {
+public class JDialogSingleListAdapter extends RecyclerView.Adapter<JDialogSingleListAdapter.VH> {
     private final List<JDialogItem> items;
     private final boolean boldText;
     private OnItemClickListener onItemClickListener;
 
-    public JDialogGridAdapter(List<JDialogItem> items, boolean boldText) {
+    public JDialogSingleListAdapter(List<JDialogItem> items, boolean boldText) {
         this.items = items;
         this.boldText = boldText;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull JDialogGridAdapter.VH holder, int position) {
+    public void onBindViewHolder(@NonNull JDialogSingleListAdapter.VH holder, int position) {
         JDialogItem item = items.get(position);
         holder.text.setText(item.text);
+        holder.text.setOnClickListener(v -> onItemClickListener.itemClick(position));
         holder.icon.setImageResource(item.icon > 0 ? item.icon : R.drawable.jdialog_list);
         //点击
         holder.layout.setOnClickListener(v -> onItemClickListener.itemClick(position));
@@ -42,8 +43,8 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
 
     @NonNull
     @Override
-    public JDialogGridAdapter.VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_grid_items, parent, false);
+    public JDialogSingleListAdapter.VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_list_items, parent, false);
         return new VH(v, boldText);
     }
 
@@ -59,7 +60,7 @@ public class JDialogGridAdapter extends RecyclerView.Adapter<JDialogGridAdapter.
 
         public VH(View v, boolean boldText) {
             super(v);
-            layout = v.findViewById(R.id.jdialog_grid_view);
+            layout = v.findViewById(R.id.jdialog_list_view);
             icon = v.findViewById(R.id.jdialog_list_icon);
             text = v.findViewById(R.id.jdialog_list_text);
             if (boldText) {

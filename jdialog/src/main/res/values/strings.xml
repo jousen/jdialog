@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="j_dialog_title">选择</string>
-    <string name="j_dialog_close">关闭</string>
-    <string name="j_dialog_list">列表</string>
-    <string name="j_dialog_confirm">确认</string>
-    <string name="j_dialog_cancel">取消</string>
+    <string name="jdialog_title">选择</string>
+    <string name="jdialog_close">关闭</string>
+    <string name="jdialog_list">列表</string>
+    <string name="jdialog_confirm">确认</string>
+    <string name="jdialog_cancel">取消</string>
 </resources>

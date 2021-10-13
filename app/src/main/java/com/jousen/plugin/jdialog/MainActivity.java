@@ -33,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.dialog_info).setOnClickListener(v -> infoDialog());
         //用户确认弹窗
         findViewById(R.id.dialog_confirm).setOnClickListener(v -> confirmDialog());
-        //列表弹窗
+        //单列带图标弹窗
         findViewById(R.id.dialog_list).setOnClickListener(v -> listDialog());
-        //网格弹窗
+        //网格带图标弹窗
         findViewById(R.id.dialog_grid).setOnClickListener(v -> gridDialog());
+        //多列不带图标弹窗
+        findViewById(R.id.dialog_multi_list).setOnClickListener(v -> multiListDialog());
         //暗黑模式切换
         findViewById(R.id.day_night).setOnClickListener(v -> {
             MyApp app = (MyApp) getApplicationContext();
@@ -138,9 +140,22 @@ public class MainActivity extends AppCompatActivity {
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
 
-        JListDialog jDialog = new JListDialog(context);
+        JListDialog jDialog = new JListDialog(context,4,false);
         jDialog.setData(jDialogItems);
-        jDialog.setGridMode(4);
+        jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
+        jDialog.show();
+    }
+
+    private void multiListDialog() {
+        List<JDialogItem> jDialogItems = new ArrayList<>();
+        jDialogItems.add(new JDialogItem("文本1"));
+        jDialogItems.add(new JDialogItem("文本2"));
+        jDialogItems.add(new JDialogItem("文本3"));
+        jDialogItems.add(new JDialogItem("文本4"));
+        jDialogItems.add(new JDialogItem("文本5"));
+
+        JListDialog jDialog = new JListDialog(context,3,true);
+        jDialog.setData(jDialogItems);
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
     }

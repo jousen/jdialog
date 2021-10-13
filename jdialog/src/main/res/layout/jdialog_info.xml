@@ -7,48 +7,47 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/j_dialog_title"
+        android:id="@+id/jdialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:textColor="@color/dialog_text"
+        android:textColor="@color/jdialog_text"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/j_dialog_close"
+        android:id="@+id/jdialog_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:contentDescription="@string/j_dialog_close"
+        android:contentDescription="@string/jdialog_close"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/j_dialog_title"
-        app:layout_constraintRight_toRightOf="@+id/j_dialog_title"
-        app:layout_constraintTop_toTopOf="@+id/j_dialog_title"
+        app:layout_constraintBottom_toBottomOf="@+id/jdialog_title"
+        app:layout_constraintRight_toRightOf="@+id/jdialog_title"
+        app:layout_constraintTop_toTopOf="@+id/jdialog_title"
         app:srcCompat="@drawable/jdialog_close" />
 
     <TextView
-        android:id="@+id/j_dialog_text"
+        android:id="@+id/jdialog_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:lineSpacingExtra="3dp"
-        android:padding="15dp"
-        android:textColor="@color/dialog_text"
+        android:lineSpacingExtra="2dp"
+        android:textColor="@color/jdialog_text"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/j_dialog_title" />
+        app:layout_constraintTop_toBottomOf="@+id/jdialog_title" />
 
     <Button
-        android:id="@+id/j_dialog_confirm"
+        android:id="@+id/jdialog_confirm"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/jdialog_button_primary"
-        android:text="@string/j_dialog_confirm"
+        android:text="@string/jdialog_confirm"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/j_dialog_text" />
+        app:layout_constraintTop_toBottomOf="@+id/jdialog_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

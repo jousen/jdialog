@@ -3,23 +3,18 @@
     android:id="@+id/jdialog_list_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="2dp"
     android:background="@drawable/jdialog_card_style"
     android:orientation="horizontal"
     android:padding="10dp">
-
-    <ImageView
-        android:id="@+id/jdialog_list_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/jdialog_list" />
 
     <TextView
         android:id="@+id/jdialog_list_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:gravity="center"
         android:padding="5dp"
         android:textColor="@color/jdialog_text"
         android:textSize="14sp" />

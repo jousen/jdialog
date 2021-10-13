@@ -12,10 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jousen.plugin.jdialog.listener.OnButtonClickListener;
 
-public class JInfoDialog extends BottomSheetDialog {
+public class JInfoDialog {
     private final AlertDialog dialog;
     private final TextView titleView;
     private final TextView textView;
@@ -23,30 +22,31 @@ public class JInfoDialog extends BottomSheetDialog {
     private OnButtonClickListener onButtonClickListener;
 
     public JInfoDialog(@NonNull Context context) {
-        super(context);
         //弹窗界面
         View dialogView = View.inflate(context, R.layout.jdialog_info, null);
         //初始化弹窗参数
         dialog = new AlertDialog.Builder(context, R.style.JDialogStyle).setView(dialogView).setCancelable(true).create();
         //初始化弹窗内部元素
-        dialogView.findViewById(R.id.j_dialog_close).setOnClickListener(v -> {
+        dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> {
             onButtonClickListener.closeClick();
             closeDialog();
         });
-        confirmView = dialogView.findViewById(R.id.j_dialog_confirm);
+        confirmView = dialogView.findViewById(R.id.jdialog_confirm);
         confirmView.setOnClickListener(v -> {
             onButtonClickListener.confirmClick();
             closeDialog();
         });
-        titleView = dialogView.findViewById(R.id.j_dialog_title);
-        textView = dialogView.findViewById(R.id.j_dialog_text);
+        titleView = dialogView.findViewById(R.id.jdialog_title);
+        textView = dialogView.findViewById(R.id.jdialog_text);
     }
 
     /**
      * 显示弹窗
      */
     public void show() {
-        dialog.show();
+        if (dialog != null) {
+            dialog.show();
+        }
     }
 
     /**
@@ -55,7 +55,7 @@ public class JInfoDialog extends BottomSheetDialog {
      * @param title 弹窗标题
      */
     public void setTitle(String title) {
-        titleView.setText(subString(title, 16));
+        titleView.setText(StrSub.limit(title, 16));
     }
 
     /**
@@ -65,7 +65,7 @@ public class JInfoDialog extends BottomSheetDialog {
      * @param titleMaxLength 标题最大长度
      */
     public void setTitle(String title, int titleMaxLength) {
-        titleView.setText(subString(title, titleMaxLength));
+        titleView.setText(StrSub.limit(title, titleMaxLength));
     }
 
     /**
@@ -170,22 +170,5 @@ public class JInfoDialog extends BottomSheetDialog {
         if (dialog != null) {
             dialog.dismiss();
         }
-    }
-
-    /**
-     * 标题长度限制
-     *
-     * @param string         标题
-     * @param titleMaxLength 最大长度
-     * @return string
-     */
-    private String subString(String string, int titleMaxLength) {
-        if (string == null) {
-            return "";
-        }
-        if (titleMaxLength == 0 || string.length() < titleMaxLength) {
-            return string;
-        }
-        return string.substring(0, titleMaxLength) + "…";
     }
 }
