@@ -1,4 +1,4 @@
-package com.jousen.plugin.jdialog;
+package com.jousen.example.jdialog;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.jousen.plugin.jdialog.JConfirmDialog;
+import com.jousen.plugin.jdialog.JDialogItem;
+import com.jousen.plugin.jdialog.JInfoDialog;
+import com.jousen.plugin.jdialog.JListDialog;
 import com.jousen.plugin.jdialog.listener.OnButtonClickListener;
 
 import java.util.ArrayList;
@@ -140,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
 
-        JListDialog jDialog = new JListDialog(context,4,false);
+        JListDialog jDialog = new JListDialog(context, 4, false);
         jDialog.setData(jDialogItems);
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
@@ -154,8 +158,9 @@ public class MainActivity extends AppCompatActivity {
         jDialogItems.add(new JDialogItem("文本4"));
         jDialogItems.add(new JDialogItem("文本5"));
 
-        JListDialog jDialog = new JListDialog(context,3,true);
+        JListDialog jDialog = new JListDialog(context, 3, true);
         jDialog.setData(jDialogItems);
+        jDialog.setTextBold();
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
     }

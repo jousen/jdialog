@@ -1,4 +1,4 @@
-package com.jousen.plugin.jdialog;
+package com.jousen.example.jdialog;
 
 import org.junit.Test;
 

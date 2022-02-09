@@ -1,4 +1,4 @@
-package com.jousen.plugin.jdialog;
+package com.jousen.example.jdialog;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.jousen.plugin.jdialog", appContext.getPackageName());
+        assertEquals("com.jousen.example.jdialog", appContext.getPackageName());
     }
 }

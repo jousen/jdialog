@@ -129,15 +129,6 @@ public class JConfirmDialog {
     }
 
     /**
-     * 设置text可滚动 内容过长时使用(不建议使用过长文本)
-     * {@link JInfoDialog#setTextMovement}
-     */
-    @Deprecated
-    public void setTextScrollable() {
-        setTextMovement();
-    }
-
-    /**
      * 设置text可点击和滚动 内容过长时使用(不建议使用过长文本)
      */
     public void setTextMovement() {

@@ -6,7 +6,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ public class JInfoDialog {
     private final AlertDialog dialog;
     private final TextView titleView;
     private final TextView textView;
-    private final Button confirmView;
     private OnButtonClickListener onButtonClickListener;
 
     public JInfoDialog(@NonNull Context context) {
@@ -29,11 +27,6 @@ public class JInfoDialog {
         //初始化弹窗内部元素
         dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> {
             onButtonClickListener.closeClick();
-            closeDialog();
-        });
-        confirmView = dialogView.findViewById(R.id.jdialog_confirm);
-        confirmView.setOnClickListener(v -> {
-            onButtonClickListener.confirmClick();
             closeDialog();
         });
         titleView = dialogView.findViewById(R.id.jdialog_title);
@@ -126,31 +119,11 @@ public class JInfoDialog {
     }
 
     /**
-     * 设置text可滚动 内容过长时使用(不建议使用过长文本)
-     * {@link JInfoDialog#setTextMovement}
-     */
-    @Deprecated
-    public void setTextScrollable() {
-        setTextMovement();
-    }
-
-    /**
      * 设置text可点击和滚动 内容过长时使用(不建议使用过长文本)
      */
     public void setTextMovement() {
         if (textView != null) {
             textView.setMovementMethod(LinkMovementMethod.getInstance());
-        }
-    }
-
-    /**
-     * 设置确认按钮文字
-     *
-     * @param text 按钮文字
-     */
-    public void setConfirmText(String text) {
-        if (confirmView != null) {
-            confirmView.setText(text);
         }
     }
 

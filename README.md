@@ -35,7 +35,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:4.1'
+    implementation 'com.github.jousen:jdialog:4.2'
 }
 ```
 
@@ -197,7 +197,7 @@ dependencies {
 ## Licenses
 
 ```
-Copyright 2021 jousen
+Copyright 2022 jousen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

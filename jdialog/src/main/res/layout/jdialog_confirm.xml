@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/jdialog_info_style"
-    android:padding="15dp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/jdialog_title"

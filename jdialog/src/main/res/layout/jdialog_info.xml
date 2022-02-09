@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/jdialog_info_style"
-    android:padding="15dp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/jdialog_title"
@@ -34,20 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:lineSpacingExtra="2dp"
+        android:lineSpacingExtra="3dp"
         android:textColor="@color/jdialog_text"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/jdialog_title" />
-
-    <Button
-        android:id="@+id/jdialog_confirm"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/jdialog_button_primary"
-        android:text="@string/jdialog_confirm"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/jdialog_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
