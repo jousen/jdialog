@@ -2,21 +2,21 @@
 
 **Android 常用弹窗组件，基于谷歌的MaterialDesign BottomSheetDialog**
 
-**Android bottom dialog base on material design BottomSheetDialog.** 
+**Android bottom dialog base on material design BottomSheetDialog.**
 
 ------
 
 ## 1、特性 Feature
 
--  Android 5.0以上系统版本支持 Support Android 5.0+ 
+- Android 5.0以上系统版本支持 Support Android 5.0+
 - 只支持 AndroidX Support Only AndroidX
-- 已适配Android暗黑模式 Supports Android App Dark Theme 
+- 已适配Android暗黑模式 Supports Android App Dark Theme
 
 ## 2、依赖 Import
 
-1、将JitPack存储库添加到您的构建文件中(项目根目录下build.gradle文件) 
+1、将JitPack存储库添加到您的构建文件中(项目根目录下build.gradle文件)
 
-Add the JitPack maven repository to the list of repositories 
+Add the JitPack maven repository to the list of repositories
 
 **build.gradle**
 
@@ -29,13 +29,13 @@ allprojects {
 }
 ```
 
-2、Add dependencies 
+2、Add dependencies
 
 [![](https://jitpack.io/v/jousen/jdialog.svg)](https://jitpack.io/#jousen/jdialog)
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:4.3'
+    implementation 'com.github.jousen:jdialog:4.5'
 }
 ```
 
@@ -109,8 +109,6 @@ dependencies {
         jDialog.show();
 ```
 
-
-
 <img src="https://github.com/jousen/jdialog/blob/main/img/2.png"/>
 
 ------
@@ -136,8 +134,6 @@ dependencies {
         jDialog.show();
 ```
 
-
-
 <img src="https://github.com/jousen/jdialog/blob/main/img/3.png"/>
 
 ------
@@ -158,8 +154,6 @@ dependencies {
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
 ```
-
-
 
 <img src="https://github.com/jousen/jdialog/blob/main/img/4.png"/>
 
@@ -187,12 +181,20 @@ dependencies {
 
 <img src="https://github.com/jousen/jdialog/blob/main/img/6.png"/>
 
+##### 7、JListDialog 参数
+
+```
+    @param context    Context
+    @param gridColumn 列数
+    @param lineTopBar list顶部bar是否为横线
+    public JListDialog(@NonNull Context context, int gridColumn, boolean lineTopBar)
+```
+
 ## 4、注意
 
 关闭activity或因切换横竖屏导致activity销毁重建时，最好检查下dialog是否已关闭，若未关闭，可能导致内存问题
 
 ------
-
 
 ## Licenses
 

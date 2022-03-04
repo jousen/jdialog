@@ -3,6 +3,6 @@
     <color name="jdialog_bg">#232323</color>
     <color name="jdialog_text">#FFFFFF</color>
     <color name="jdialog_bt_primary">#2196F3</color>
-    <color name="jdialog_bt_danger">#FFEB3B</color>
+    <color name="jdialog_bt_danger">#FFFFFF</color>
     <color name="jdialog_card_bg">#383838</color>
 </resources>

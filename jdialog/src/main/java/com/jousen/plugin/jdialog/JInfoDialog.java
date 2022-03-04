@@ -24,6 +24,7 @@ public class JInfoDialog {
         View dialogView = View.inflate(context, R.layout.jdialog_info, null);
         //初始化弹窗参数
         dialog = new AlertDialog.Builder(context, R.style.JDialogStyle).setView(dialogView).setCancelable(true).create();
+        dialog.setOnCancelListener(dialog -> onButtonClickListener.closeClick());
         //初始化弹窗内部元素
         dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> {
             onButtonClickListener.closeClick();
@@ -48,7 +49,7 @@ public class JInfoDialog {
      * @param title 弹窗标题
      */
     public void setTitle(String title) {
-        titleView.setText(StrSub.limit(title, 16));
+        titleView.setText(title);
     }
 
     /**

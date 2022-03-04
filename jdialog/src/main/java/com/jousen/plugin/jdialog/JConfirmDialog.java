@@ -27,6 +27,7 @@ public class JConfirmDialog {
         View dialogView = View.inflate(context, R.layout.jdialog_confirm, null);
         //初始化弹窗参数
         dialog = new AlertDialog.Builder(context, R.style.JDialogStyle).setView(dialogView).setCancelable(true).create();
+        dialog.setOnCancelListener(dialog -> onButtonClickListener.closeClick());
         //初始化弹窗内部元素
         confirmView = dialogView.findViewById(R.id.jdialog_confirm);
         confirmView.setOnClickListener(v -> {
@@ -58,7 +59,7 @@ public class JConfirmDialog {
      * @param title 弹窗标题
      */
     public void setTitle(String title) {
-        titleView.setText(StrSub.limit(title, 16));
+        titleView.setText(title);
     }
 
     /**

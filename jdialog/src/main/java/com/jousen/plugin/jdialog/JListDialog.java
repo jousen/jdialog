@@ -25,7 +25,7 @@ import java.util.List;
 public class JListDialog {
     private final Context context;
     private final View dialogView;
-    private final TextView titleView;
+    private TextView titleView;
     private final RecyclerView listView;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetBehavior<View> bottomSheetBehavior;
@@ -36,22 +36,47 @@ public class JListDialog {
     private boolean boldText;
     private int windowsHeight = 1920;
 
+    /**
+     * 初始化
+     *
+     * @param context Context
+     */
     public JListDialog(@NonNull Context context) {
         this(context, 1, false);
     }
 
-    public JListDialog(@NonNull Context context, int gridColumn, boolean hideIcon) {
+    /**
+     * 初始化
+     *
+     * @param context    Context
+     * @param gridColumn 列数
+     */
+    public JListDialog(@NonNull Context context, int gridColumn) {
+        this(context, gridColumn, false);
+    }
+
+    /**
+     * 初始化
+     *
+     * @param context    Context
+     * @param gridColumn 列数
+     * @param lineTopBar list顶部bar是否为横线
+     */
+    public JListDialog(@NonNull Context context, int gridColumn, boolean lineTopBar) {
         this.context = context;
         this.gridColumn = gridColumn;
-        this.hideIcon = hideIcon;
         //获取屏幕高度
         getWindowHeight(context);
         //初始化弹窗
-        dialogView = View.inflate(context, R.layout.jdialog_list, null);
+        if (lineTopBar) {
+            dialogView = View.inflate(context, R.layout.jdialog_list_simple, null);
+        } else {
+            dialogView = View.inflate(context, R.layout.jdialog_list, null);
+            titleView = dialogView.findViewById(R.id.jdialog_title);
+        }
         //初始化弹窗参数
         initDialogOption();
         //初始化弹窗内部元素
-        titleView = dialogView.findViewById(R.id.jdialog_title);
         dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> closeDialog());
         listView = dialogView.findViewById(R.id.jdialog_list);
         listView.setHasFixedSize(true);
@@ -141,7 +166,9 @@ public class JListDialog {
      * @param title 弹窗标题
      */
     public void setTitle(String title) {
-        titleView.setText(StrSub.limit(title, 16));
+        if (titleView != null) {
+            titleView.setText(title);
+        }
     }
 
     /**
@@ -151,7 +178,9 @@ public class JListDialog {
      * @param titleMaxLength 标题最大长度
      */
     public void setTitle(String title, int titleMaxLength) {
-        titleView.setText(StrSub.limit(title, titleMaxLength));
+        if (titleView != null) {
+            titleView.setText(StrSub.limit(title, titleMaxLength));
+        }
     }
 
     /**
