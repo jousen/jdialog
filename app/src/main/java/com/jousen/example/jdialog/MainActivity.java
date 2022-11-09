@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         JListDialog jDialog = new JListDialog(context, 3);
         jDialog.setData(jDialogItems);
         jDialog.setTextBold();
+        jDialog.setIconHide();
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
     }
