@@ -35,7 +35,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:4.7'
+    implementation 'com.github.jousen:jdialog:4.8'
 }
 ```
 

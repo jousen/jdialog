@@ -139,8 +139,8 @@ public class JListDialog {
         }
         //2、单列带图标模式（图标在左侧）
         if (gridColumn == 1) {
-            JDialogSingleListAdapter adapter = new JDialogSingleListAdapter(dialogItems, boldText);
             listView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+            JDialogSingleListAdapter adapter = new JDialogSingleListAdapter(dialogItems, boldText);
             listView.setAdapter(adapter);
             adapter.setOnItemClickListener(position -> {
                 onItemClickListener.itemClick(position);
@@ -149,8 +149,8 @@ public class JListDialog {
             bottomSheetDialog.show();
             return;
         }
-        listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
         //3、多列带图标模式（图标在上侧）
+        listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
         JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, boldText);
         listView.setAdapter(adapter);
         adapter.setOnItemClickListener(position -> {
