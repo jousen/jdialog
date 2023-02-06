@@ -30,6 +30,7 @@ public class JInfoDialog {
             onButtonClickListener.closeClick();
             closeDialog();
         });
+        //标题内容
         titleView = dialogView.findViewById(R.id.jdialog_title);
         textView = dialogView.findViewById(R.id.jdialog_text);
     }
@@ -67,18 +68,7 @@ public class JInfoDialog {
      *
      * @param text 弹窗内容
      */
-    public void setText(String text) {
-        if (textView != null) {
-            textView.setText(text);
-        }
-    }
-
-    /**
-     * 设置title
-     *
-     * @param text 弹窗内容
-     */
-    public void setText(SpannableString text) {
+    public void setText(CharSequence text) {
         if (textView != null) {
             textView.setText(text);
         }
@@ -89,7 +79,7 @@ public class JInfoDialog {
      *
      * @param text 弹窗内容
      */
-    public void appendText(SpannableString text) {
+    public void appendText(CharSequence text) {
         if (textView != null) {
             textView.append(text);
         }
@@ -117,6 +107,16 @@ public class JInfoDialog {
             return;
         }
         textView.setGravity(Gravity.CENTER);
+    }
+
+    /**
+     * 设置文字靠右
+     */
+    public void setTextRight() {
+        if (textView == null) {
+            return;
+        }
+        textView.setGravity(Gravity.END);
     }
 
     /**

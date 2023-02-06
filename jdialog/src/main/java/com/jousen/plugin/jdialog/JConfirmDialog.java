@@ -1,7 +1,6 @@
 package com.jousen.plugin.jdialog;
 
 import android.content.Context;
-import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
@@ -77,18 +76,7 @@ public class JConfirmDialog {
      *
      * @param text 弹窗内容
      */
-    public void setText(String text) {
-        if (textView != null) {
-            textView.setText(text);
-        }
-    }
-
-    /**
-     * 设置title
-     *
-     * @param text 弹窗内容
-     */
-    public void setText(SpannableString text) {
+    public void setText(CharSequence text) {
         if (textView != null) {
             textView.setText(text);
         }
@@ -99,7 +87,7 @@ public class JConfirmDialog {
      *
      * @param text 弹窗内容
      */
-    public void appendText(SpannableString text) {
+    public void appendText(CharSequence text) {
         if (textView != null) {
             textView.append(text);
         }
@@ -130,6 +118,16 @@ public class JConfirmDialog {
     }
 
     /**
+     * 设置文字靠右
+     */
+    public void setTextRight() {
+        if (textView == null) {
+            return;
+        }
+        textView.setGravity(Gravity.END);
+    }
+
+    /**
      * 设置text可点击和滚动 内容过长时使用(不建议使用过长文本)
      */
     public void setTextMovement() {
@@ -150,6 +148,17 @@ public class JConfirmDialog {
     }
 
     /**
+     * 设置确认按钮样式
+     *
+     * @param resId 资源id
+     */
+    public void setConfirmBackgroundRes(int resId) {
+        if (confirmView != null) {
+            confirmView.setBackgroundResource(resId);
+        }
+    }
+
+    /**
      * 设置取消按钮文字
      *
      * @param text 按钮文字
@@ -157,6 +166,17 @@ public class JConfirmDialog {
     public void setCancelText(String text) {
         if (cancelView != null) {
             cancelView.setText(text);
+        }
+    }
+
+    /**
+     * 设置取消按钮样式
+     *
+     * @param resId 资源id
+     */
+    public void setCancelBackgroundRes(int resId) {
+        if (cancelView != null) {
+            cancelView.setBackgroundResource(resId);
         }
     }
 
