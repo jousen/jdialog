@@ -22,7 +22,6 @@
         android:id="@+id/jdialog_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
         android:contentDescription="@string/jdialog_close"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/jdialog_title"

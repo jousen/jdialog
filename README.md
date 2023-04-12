@@ -35,7 +35,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.jousen:jdialog:4.9'
+    implementation 'com.github.jousen:jdialog:5.0'
 }
 ```
 
@@ -45,9 +45,9 @@ dependencies {
 
 ```
         String title = "版本升级";
-        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug";
-        SpannableString user_protocol = new SpannableString("测试链接点击");
-        user_protocol.setSpan(new ClickableSpan() {
+        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug\n";
+        SpannableString userProtocol = new SpannableString("点击测试链接");
+        userProtocol.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 Toast.makeText(context, "点击了文本内链接", Toast.LENGTH_SHORT).show();
@@ -58,13 +58,12 @@ dependencies {
                 super.updateDrawState(ds);
                 ds.setColor(Color.BLUE);
             }
-        }, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }, 0, userProtocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         JInfoDialog jDialog = new JInfoDialog(context);
         jDialog.setTitle(title);
         jDialog.setText(text);
-        jDialog.appendText(user_protocol);
-        jDialog.setTextBold();
+        jDialog.appendText(userProtocol);
         jDialog.setTextMovement();
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override
@@ -84,17 +83,18 @@ dependencies {
 
 ------
 
-##### 2、Confirm dialog 确认弹窗
+##### 2、确认弹窗 Confirm dialog 
 
 ```
-        String title = "删除确认删除确认删除确认删除确认删除确认";
-        String text = "确定要删除吗？";
+        String title = "删除确认";
+        String text = "确定要删除该数据吗？";
 
         JConfirmDialog jDialog = new JConfirmDialog(context);
-        jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
+        jDialog.setTitle(title);
         jDialog.setText(text);
-        jDialog.setTextBold();
+        jDialog.setTextCenter();
         jDialog.setConfirmText("立刻删除");
+        jDialog.setCancelText("暂不执行");
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override
             public void closeClick() {
@@ -113,7 +113,7 @@ dependencies {
 
 ------
 
-##### 3、列表左侧带图标弹窗 List dialog with icon
+##### 3、列表带图标弹窗(文字左侧) List dialog with icon
 
 ```
         List<JDialogItem> jDialogItems = new ArrayList<>();
@@ -138,10 +138,10 @@ dependencies {
 
 ------
 
-##### 4、网格带图标弹窗 grid dialog with icon
+##### 4、网格带图标弹窗（文字上侧） grid dialog with icon
 
 ```
-        List<JDialogItem> jDialogItems = new ArrayList<>();
+       List<JDialogItem> jDialogItems = new ArrayList<>();
         jDialogItems.add(new JDialogItem(R.drawable.ic_box, "网格文本1"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本2"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本3"));
@@ -149,7 +149,7 @@ dependencies {
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
 
-        JListDialog jDialog = new JListDialog(context,4,false);
+        JListDialog jDialog = new JListDialog(context, 3, true);
         jDialog.setData(jDialogItems);
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
@@ -159,7 +159,7 @@ dependencies {
 
 ------
 
-##### 5、多列不带图标弹窗 multi list no icon
+##### 5、多列无图标弹窗 multi list no icon
 
 <img src="https://github.com/jousen/jdialog/blob/main/img/5.png"/>
 
@@ -171,8 +171,10 @@ dependencies {
         jDialogItems.add(new JDialogItem("文本4"));
         jDialogItems.add(new JDialogItem("文本5"));
 
-        JListDialog jDialog = new JListDialog(context,3,true);
+        JListDialog jDialog = new JListDialog(context, 3);
         jDialog.setData(jDialogItems);
+        jDialog.setTextBold();
+        jDialog.setIconHide();
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();
 ```
@@ -181,25 +183,28 @@ dependencies {
 
 <img src="https://github.com/jousen/jdialog/blob/main/img/6.png"/>
 
-##### 7、JListDialog 参数
-
-```
-    @param context    Context
-    @param gridColumn 列数
-    @param lineTopBar list顶部bar是否为横线
-    public JListDialog(@NonNull Context context, int gridColumn, boolean lineTopBar)
-```
+##### 
 
 ## 4、注意
 
 关闭activity或因切换横竖屏导致activity销毁重建时，最好检查下dialog是否已关闭，若未关闭，可能导致内存问题
 
-------
+```
+	@Override
+    protected void onDestroy() {
+        if (jListDialog != null) {
+            jListDialog.closeDialog();
+            jListDialog = null;
+        }
+    }
+```
+
+
 
 ## Licenses
 
 ```
-Copyright 2022 jousen
+Copyright 2023 jousen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

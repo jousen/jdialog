@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jousen.plugin.jdialog.adapter.JDialogGridAdapter;
+import com.jousen.plugin.jdialog.adapter.JDialogItem;
 import com.jousen.plugin.jdialog.adapter.JDialogMultiListAdapter;
 import com.jousen.plugin.jdialog.adapter.JDialogSingleListAdapter;
 import com.jousen.plugin.jdialog.listener.OnItemClickListener;
@@ -24,20 +25,20 @@ import java.util.List;
 
 public class JListDialog {
     private final Context context;
-    private final View dialogView;
-    private TextView titleView;
-    private final RecyclerView listView;
-    private BottomSheetDialog bottomSheetDialog;
-    private BottomSheetBehavior<View> bottomSheetBehavior;
+    private final BottomSheetDialog bottomSheetDialog;
+    private final BottomSheetBehavior<View> bottomSheetBehavior;
     private OnItemClickListener onItemClickListener;
-    private List<JDialogItem> dialogItems;
-    private int gridColumn;
-    private boolean hideIcon;
-    private boolean boldText;
-    private int windowsHeight = 1920;
+
+    private final RecyclerView listView;
+    private TextView titleView;//列表标题
+
+    private List<JDialogItem> dialogItems;//列表数据
+    private int gridColumn;//列表的列数
+    private boolean hideIcon;//是否隐藏列表左侧图标
+    private boolean boldText;//列表文字是否大写
 
     /**
-     * 初始化
+     * 初始化弹窗(一列，顶部显示标题)
      *
      * @param context Context
      */
@@ -46,7 +47,7 @@ public class JListDialog {
     }
 
     /**
-     * 初始化
+     * 初始化弹窗(多列，顶部显示标题)
      *
      * @param context    Context
      * @param gridColumn 列数
@@ -56,30 +57,112 @@ public class JListDialog {
     }
 
     /**
-     * 初始化
+     * 初始化弹窗
      *
      * @param context    Context
      * @param gridColumn 列数
-     * @param lineTopBar list顶部bar是否为横线
+     * @param hideTitle  是否隐藏顶部标题，若隐藏则显示为横线
      */
-    public JListDialog(@NonNull Context context, int gridColumn, boolean lineTopBar) {
+    public JListDialog(@NonNull Context context, int gridColumn, boolean hideTitle) {
         this.context = context;
         this.gridColumn = gridColumn;
         //获取屏幕高度
-        getWindowHeight(context);
-        //初始化弹窗
-        if (lineTopBar) {
+        Resources res = context.getResources();
+        DisplayMetrics displayMetrics = res.getDisplayMetrics();
+        int defaultDialogHeight = (int) (displayMetrics.heightPixels / 1.5);//弹窗默认高度
+        //初始化弹窗界面
+        View dialogView;
+        if (hideTitle) {
             dialogView = View.inflate(context, R.layout.jdialog_list_simple, null);
         } else {
-            dialogView = View.inflate(context, R.layout.jdialog_list, null);
+            dialogView = View.inflate(context, R.layout.jdialog_list_base, null);
             titleView = dialogView.findViewById(R.id.jdialog_title);
         }
-        //初始化弹窗参数
-        initDialogOption();
-        //初始化弹窗内部元素
-        dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> closeDialog());
         listView = dialogView.findViewById(R.id.jdialog_list);
         listView.setHasFixedSize(true);
+        //初始化Bottom Sheet Dialog
+        bottomSheetDialog = new BottomSheetDialog(this.context);
+        bottomSheetDialog.setContentView(dialogView);
+        //设置背景为透明
+        try {
+            ViewGroup parent = (ViewGroup) dialogView.getParent();
+            parent.setBackgroundResource(android.R.color.transparent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bottomSheetBehavior = BottomSheetBehavior.from((View) dialogView.getParent());
+        bottomSheetBehavior.setPeekHeight(defaultDialogHeight);
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if (i == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    closeDialog();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v1) {
+
+            }
+        });
+        //初始化弹窗元素点击事件
+        dialogView.findViewById(R.id.jdialog_close).setOnClickListener(v -> closeDialog());
+    }
+
+    /**
+     * 显示弹窗
+     */
+    public void show() {
+        if (bottomSheetDialog == null) {
+            return;
+        }
+        //检查列表数据
+        if (dialogItems == null) {
+            dialogItems = new ArrayList<>();
+        }
+        //1、多列不带图标
+        if (hideIcon) {
+            listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
+            JDialogMultiListAdapter adapter = new JDialogMultiListAdapter(dialogItems, boldText);
+            listView.setAdapter(adapter);
+            adapter.setOnItemClickListener(position -> {
+                onItemClickListener.itemClick(position);
+                closeDialog();
+            });
+            bottomSheetDialog.show();
+            return;
+        }
+        //2、单列图标模式（图标在左侧）
+        if (gridColumn == 1) {
+            listView.setLayoutManager(new LinearLayoutManager(context));
+            JDialogSingleListAdapter adapter = new JDialogSingleListAdapter(dialogItems, boldText);
+            listView.setAdapter(adapter);
+            adapter.setOnItemClickListener(position -> {
+                onItemClickListener.itemClick(position);
+                closeDialog();
+            });
+            bottomSheetDialog.show();
+            return;
+        }
+        //3、多列图标模式（图标在上侧）
+        listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
+        JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, boldText);
+        listView.setAdapter(adapter);
+        adapter.setOnItemClickListener(position -> {
+            onItemClickListener.itemClick(position);
+            closeDialog();
+        });
+        bottomSheetDialog.show();
+    }
+
+    /**
+     * 销毁弹窗
+     */
+    public void closeDialog() {
+        if (bottomSheetDialog != null) {
+            bottomSheetDialog.dismiss();
+        }
     }
 
     /**
@@ -108,59 +191,6 @@ public class JListDialog {
     }
 
     /**
-     * 设置文字加粗
-     */
-    public void setTextBold() {
-        this.boldText = true;
-    }
-
-    /**
-     * 显示弹窗
-     */
-    public void show() {
-        if (bottomSheetDialog == null) {
-            return;
-        }
-        //检查列表数据
-        if (dialogItems == null) {
-            dialogItems = new ArrayList<>();
-        }
-        //1、不带图标模式
-        if (hideIcon) {
-            listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
-            JDialogMultiListAdapter adapter = new JDialogMultiListAdapter(dialogItems, boldText);
-            listView.setAdapter(adapter);
-            adapter.setOnItemClickListener(position -> {
-                onItemClickListener.itemClick(position);
-                closeDialog();
-            });
-            bottomSheetDialog.show();
-            return;
-        }
-        //2、单列带图标模式（图标在左侧）
-        if (gridColumn == 1) {
-            listView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-            JDialogSingleListAdapter adapter = new JDialogSingleListAdapter(dialogItems, boldText);
-            listView.setAdapter(adapter);
-            adapter.setOnItemClickListener(position -> {
-                onItemClickListener.itemClick(position);
-                closeDialog();
-            });
-            bottomSheetDialog.show();
-            return;
-        }
-        //3、多列带图标模式（图标在上侧）
-        listView.setLayoutManager(new GridLayoutManager(context, gridColumn, RecyclerView.VERTICAL, false));
-        JDialogGridAdapter adapter = new JDialogGridAdapter(dialogItems, boldText);
-        listView.setAdapter(adapter);
-        adapter.setOnItemClickListener(position -> {
-            onItemClickListener.itemClick(position);
-            closeDialog();
-        });
-        bottomSheetDialog.show();
-    }
-
-    /**
      * 设置title
      *
      * @param title 弹窗标题
@@ -172,15 +202,10 @@ public class JListDialog {
     }
 
     /**
-     * 设置title并限定长度
-     *
-     * @param title          弹窗标题
-     * @param titleMaxLength 标题最大长度
+     * 设置列表文字加粗
      */
-    public void setTitle(String title, int titleMaxLength) {
-        if (titleView != null) {
-            titleView.setText(StrSub.limit(title, titleMaxLength));
-        }
+    public void setTextBold() {
+        this.boldText = true;
     }
 
     /**
@@ -190,58 +215,5 @@ public class JListDialog {
      */
     public void onItemClick(OnItemClickListener listener) {
         this.onItemClickListener = listener;
-    }
-
-    /**
-     * 设置弹窗参数
-     */
-    private void initDialogOption() {
-        //初始化dialog
-        bottomSheetDialog = new BottomSheetDialog(context);
-        bottomSheetDialog.setContentView(dialogView);
-        //设置背景为透明
-        try {
-            ViewGroup parent = (ViewGroup) dialogView.getParent();
-            parent.setBackgroundResource(android.R.color.transparent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        bottomSheetBehavior = BottomSheetBehavior.from((View) dialogView.getParent());
-        int defaultHeight = (int) (windowsHeight / 1.5);
-        bottomSheetBehavior.setPeekHeight(defaultHeight);
-        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View view, int i) {
-                if (i == BottomSheetBehavior.STATE_HIDDEN) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    closeDialog();
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View view, float v) {
-
-            }
-        });
-    }
-
-    /**
-     * 销毁弹窗
-     */
-    public void closeDialog() {
-        if (bottomSheetDialog != null) {
-            bottomSheetDialog.dismiss();
-        }
-    }
-
-    /**
-     * 获取屏幕高度
-     *
-     * @param context 上下文
-     */
-    private void getWindowHeight(Context context) {
-        Resources res = context.getResources();
-        DisplayMetrics displayMetrics = res.getDisplayMetrics();
-        this.windowsHeight = displayMetrics.heightPixels;
     }
 }

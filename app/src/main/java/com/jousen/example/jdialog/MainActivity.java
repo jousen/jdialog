@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.jousen.plugin.jdialog.JConfirmDialog;
-import com.jousen.plugin.jdialog.JDialogItem;
 import com.jousen.plugin.jdialog.JInfoDialog;
 import com.jousen.plugin.jdialog.JListDialog;
+import com.jousen.plugin.jdialog.adapter.JDialogItem;
 import com.jousen.plugin.jdialog.listener.OnButtonClickListener;
 
 import java.util.ArrayList;
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void infoDialog() {
         String title = "版本升级";
-        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug";
-        SpannableString user_protocol = new SpannableString("测试链接点击");
-        user_protocol.setSpan(new ClickableSpan() {
+        String text = "本次更新:\n\n1. 修复bug\n2. 修复bug\n3. 修复bug\n";
+        SpannableString userProtocol = new SpannableString("点击测试链接");
+        userProtocol.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 Toast.makeText(context, "点击了文本内链接", Toast.LENGTH_SHORT).show();
@@ -71,13 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 super.updateDrawState(ds);
                 ds.setColor(Color.BLUE);
             }
-        }, 0, user_protocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }, 0, userProtocol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         JInfoDialog jDialog = new JInfoDialog(context);
         jDialog.setTitle(title);
         jDialog.setText(text);
-        jDialog.appendText(user_protocol);
-        jDialog.setTextBold();
+        jDialog.appendText(userProtocol);
         jDialog.setTextMovement();
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override
@@ -94,14 +93,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void confirmDialog() {
-        String title = "删除确认删除确认删除确认删除确认删除确认";
-        String text = "确定要删除吗？";
+        String title = "删除确认";
+        String text = "确定要删除该数据吗？";
 
         JConfirmDialog jDialog = new JConfirmDialog(context);
-        jDialog.setTitle(title, 4);//setTitle(String title, int titleMaxLength)
+        jDialog.setTitle(title);
         jDialog.setText(text);
-        jDialog.setTextBold();
+        jDialog.setTextCenter();
         jDialog.setConfirmText("立刻删除");
+        jDialog.setCancelText("暂不执行");
         jDialog.onButtonClick(new OnButtonClickListener() {
             @Override
             public void closeClick() {
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本5"));
         jDialogItems.add(new JDialogItem(R.drawable.ic_test_icon, "网格文本6"));
 
-        JListDialog jDialog = new JListDialog(context, 4, true);
+        JListDialog jDialog = new JListDialog(context, 3, true);
         jDialog.setData(jDialogItems);
         jDialog.onItemClick(position -> Toast.makeText(context, "点击了第 " + position + " 项", Toast.LENGTH_SHORT).show());
         jDialog.show();

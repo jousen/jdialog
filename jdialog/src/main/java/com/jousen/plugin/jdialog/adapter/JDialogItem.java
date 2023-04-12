@@ -1,17 +1,8 @@
-package com.jousen.plugin.jdialog;
+package com.jousen.plugin.jdialog.adapter;
 
-
-/**
- * @author 李易航
- */
 public class JDialogItem {
     public int icon;
     public String text;
-
-    public JDialogItem() {
-        this.icon = 0;
-        this.text = "";
-    }
 
     public JDialogItem(String text) {
         this.icon = 0;

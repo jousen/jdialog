@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jousen.plugin.jdialog.JDialogItem;
 import com.jousen.plugin.jdialog.R;
 import com.jousen.plugin.jdialog.listener.OnItemClickListener;
 
@@ -31,7 +30,6 @@ public class JDialogSingleListAdapter extends RecyclerView.Adapter<JDialogSingle
     public void onBindViewHolder(@NonNull JDialogSingleListAdapter.VH holder, int position) {
         JDialogItem item = items.get(position);
         holder.text.setText(item.text);
-        holder.text.setOnClickListener(v -> onItemClickListener.itemClick(position));
         holder.icon.setImageResource(item.icon > 0 ? item.icon : R.drawable.jdialog_list);
         //点击
         holder.layout.setOnClickListener(v -> onItemClickListener.itemClick(position));
@@ -44,7 +42,7 @@ public class JDialogSingleListAdapter extends RecyclerView.Adapter<JDialogSingle
     @NonNull
     @Override
     public JDialogSingleListAdapter.VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_list_items, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_item_base, parent, false);
         return new VH(v, boldText);
     }
 

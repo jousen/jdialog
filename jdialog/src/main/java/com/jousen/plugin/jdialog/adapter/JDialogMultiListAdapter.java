@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jousen.plugin.jdialog.JDialogItem;
 import com.jousen.plugin.jdialog.R;
 import com.jousen.plugin.jdialog.listener.OnItemClickListener;
 
@@ -41,7 +40,7 @@ public class JDialogMultiListAdapter extends RecyclerView.Adapter<JDialogMultiLi
     @NonNull
     @Override
     public JDialogMultiListAdapter.VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_multi_list_items, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jdialog_item_multi, parent, false);
         return new VH(v, boldText);
     }
 
