@@ -38,6 +38,7 @@ public class JInfoDialog {
         confirmView = dialogView.findViewById(R.id.jdialog_confirm);
         //初始化Bottom Sheet Dialog
         bottomSheetDialog = new BottomSheetDialog(context);
+        bottomSheetDialog.setOnCancelListener(dialog -> onButtonClickListener.closeClick());
         bottomSheetDialog.setContentView(dialogView);
         //设置背景为透明
         try {

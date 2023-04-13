@@ -1,10 +1,12 @@
 package com.jousen.plugin.jdialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ public class JConfirmDialog {
         cancelView = dialogView.findViewById(R.id.jdialog_cancel);
         //初始化Bottom Sheet Dialog
         bottomSheetDialog = new BottomSheetDialog(context);
+        bottomSheetDialog.setOnCancelListener(dialog -> onButtonClickListener.closeClick());
         bottomSheetDialog.setContentView(dialogView);
         //设置背景为透明
         try {
